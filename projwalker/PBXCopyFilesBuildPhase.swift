@@ -9,18 +9,18 @@
 import Foundation
 
 class PBXCopyFilesBuildPhase: ProjectObject {
-    var buildActionMask: Int
-    var dstPath: String
-    var dstSubfolderSpec: Int
-    var files: [Reference]
-    var runOnlyForDeploymentPostprocessing: Bool
+    var buildActionMask: Int?
+    var dstPath: String?
+    var dstSubfolderSpec: Int?
+    var files: [Reference]?
+    var runOnlyForDeploymentPostprocessing: Bool?
 
     override init(items: ProjectFileDictionary) {
-        self.buildActionMask = items.int(forKey: "buildActionMask") ?? 0
-        self.dstPath = items.string(forKey: "dstPath") ?? ""
-        self.dstSubfolderSpec = items.int(forKey: "dstSubfolderSpec") ?? 0
-        self.files = items.stringArray(forKey: "files") ?? []
-        self.runOnlyForDeploymentPostprocessing = items.bool(forKey: "runOnlyForDeploymentPostprocessing") ?? false
+        self.buildActionMask = items.int(forKey: "buildActionMask")
+        self.dstPath = items.string(forKey: "dstPath")
+        self.dstSubfolderSpec = items.int(forKey: "dstSubfolderSpec")
+        self.files = items.stringArray(forKey: "files")
+        self.runOnlyForDeploymentPostprocessing = items.bool(forKey: "runOnlyForDeploymentPostprocessing")
 
         super.init(items: items)
     }

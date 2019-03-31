@@ -9,12 +9,12 @@
 import Foundation
 
 class PBXTargetDependency: ProjectObject {
-    var target: Reference
-    var targetProxy: Reference
+    var target: Reference?
+    var targetProxy: Reference?
 
     override init(items: ProjectFileDictionary) {
-        self.target = items.string(forKey: "target") ?? ""
-        self.targetProxy = items.string(forKey: "targetProxy") ?? ""
+        self.target = items.string(forKey: "target")
+        self.targetProxy = items.string(forKey: "targetProxy")
 
         super.init(items: items)
     }

@@ -9,14 +9,14 @@
 import Foundation
 
 class PBXGroup: ProjectObject {
-    var children: [Reference]
-    var name: String
-    var sourceTree: String
+    var children: [Reference]?
+    var name: String?
+    var sourceTree: String?
 
     override init(items: ProjectFileDictionary) {
-        self.name = items.string(forKey: "name") ?? ""
-        self.sourceTree = items.string(forKey: "sourceTree") ?? ""
-        self.children = items.stringArray(forKey: "children") ?? []
+        self.name = items.string(forKey: "name")
+        self.sourceTree = items.string(forKey: "sourceTree")
+        self.children = items.stringArray(forKey: "children")
 
         super.init(items: items)
     }

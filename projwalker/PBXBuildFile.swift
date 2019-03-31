@@ -9,12 +9,12 @@
 import Foundation
 
 class PBXBuildFile: ProjectObject {
-    var fileRef: Reference
-    var settings: [String: String]
+    var fileRef: Reference?
+    var settings: [String: String]?
 
     override init(items: ProjectFileDictionary) {
-        self.fileRef = items.string(forKey: "fileRef") ?? ""
-        self.settings = items["settings"] as? [String: String] ?? [:]
+        self.fileRef = items.string(forKey: "fileRef")
+        self.settings = items["settings"] as? [String: String]
 
         super.init(items: items)
     }

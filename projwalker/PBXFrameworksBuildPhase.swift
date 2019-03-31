@@ -9,14 +9,14 @@
 import Foundation
 
 class PBXFrameworksBuildPhase: ProjectObject {
-    var buildActionMask: Int
-    var file: [Reference]
-    var runOnlyForDeploymentPostprocessing: Bool
+    var buildActionMask: Int?
+    var file: [Reference]?
+    var runOnlyForDeploymentPostprocessing: Bool?
 
     override init(items: ProjectFileDictionary) {
-        self.buildActionMask = items.int(forKey: "buildActionMask") ?? 0
-        self.file = items.stringArray(forKey: "file") ?? []
-        self.runOnlyForDeploymentPostprocessing = items.bool(forKey: "runOnlyForDeploymentPostprocessing") ?? false
+        self.buildActionMask = items.int(forKey: "buildActionMask")
+        self.file = items.stringArray(forKey: "file")
+        self.runOnlyForDeploymentPostprocessing = items.bool(forKey: "runOnlyForDeploymentPostprocessing")
 
         super.init(items: items)
     }
