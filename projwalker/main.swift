@@ -45,4 +45,5 @@ for key in plist.keys.sorted() {
     }
 }
 
+project.dumpUnhandledTypes()
 let proj = project.root()

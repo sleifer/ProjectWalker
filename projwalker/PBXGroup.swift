@@ -9,7 +9,7 @@
 import Foundation
 
 class PBXGroup: ProjectObject {
-    var children: [String]
+    var children: [Reference]
     var name: String
     var sourceTree: String
 

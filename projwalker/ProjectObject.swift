@@ -1,5 +1,7 @@
 import Foundation
 
+typealias Reference = String
+
 class ProjectObject {
     var items: ProjectFileDictionary
 
@@ -22,8 +24,8 @@ class ProjectObject {
                 return PBXBuildFile(items: items)
             case "PBXProject":
                 return PBXProject(items: items)
-            case "PBXNativeTarget":
-                return PBXNativeTarget(items: items)
+            case "PBXTargetDependency":
+                return PBXTargetDependency(items: items)
             case "XCBuildConfiguration":
                 return XCBuildConfiguration(items: items)
             case "XCConfigurationList":
@@ -36,6 +38,8 @@ class ProjectObject {
                 return PBXCopyFilesBuildPhase(items: items)
             case "PBXSourcesBuildPhase":
                 return PBXSourcesBuildPhase(items: items)
+            case "PBXNativeTarget":
+                return PBXNativeTarget(items: items)
             default:
                 return ProjectObject(items: items)
             }

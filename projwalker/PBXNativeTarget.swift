@@ -9,12 +9,24 @@
 import Foundation
 
 class PBXNativeTarget: ProjectObject {
-    var target: String
-    var targetProxy: String
+    var buildConfigurationList: Reference
+    var buildPhases: [Reference]
+    var dependencies: [Reference]
+    var name: String
+    var productInstallPath: String
+    var productName: String
+    var productReference: Reference
+    var productType: String
 
     override init(items: ProjectFileDictionary) {
-        self.target = items.string(forKey: "target") ?? ""
-        self.targetProxy = items.string(forKey: "targetProxy") ?? ""
+        self.buildConfigurationList = items.string(forKey: "buildConfigurationList") ?? ""
+        self.buildPhases = items.stringArray(forKey: "buildPhases") ?? []
+        self.dependencies = items.stringArray(forKey: "dependencies") ?? []
+        self.name = items.string(forKey: "name") ?? ""
+        self.productInstallPath = items.string(forKey: "productInstallPath") ?? ""
+        self.productName = items.string(forKey: "productName") ?? ""
+        self.productReference = items.string(forKey: "productReference") ?? ""
+        self.productType = items.string(forKey: "productType") ?? ""
 
         super.init(items: items)
     }

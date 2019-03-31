@@ -9,17 +9,17 @@
 import Foundation
 
 class PBXProject: ProjectObject {
-    var buildConfigurationList: String
+    var buildConfigurationList: Reference
     var compatibilityVersion: String
     var developmentRegion: String
     var hasScannedForEncodings: Bool
     var knownRegions: [String]
-    var mainGroup: String
-    var productRefGroup: String
+    var mainGroup: Reference
+    var productRefGroup: Reference
     var projectDirPath: String
     var projectReferences: ProjectFileDictionary
     var projectRoot: String
-    var targets: [String]
+    var targets: [Reference]
 
     override init(items: ProjectFileDictionary) {
         self.buildConfigurationList = items.string(forKey: "buildConfigurationList") ?? ""

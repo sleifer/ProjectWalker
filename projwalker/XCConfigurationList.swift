@@ -9,7 +9,7 @@
 import Foundation
 
 class XCConfigurationList: ProjectObject {
-    var buildConfigurations: [String]
+    var buildConfigurations: [Reference]
     var defaultConfigurationIsVisible: Bool
     var defaultConfigurationName: String
 

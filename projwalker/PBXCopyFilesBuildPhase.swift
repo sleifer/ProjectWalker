@@ -12,7 +12,7 @@ class PBXCopyFilesBuildPhase: ProjectObject {
     var buildActionMask: Int
     var dstPath: String
     var dstSubfolderSpec: Int
-    var files: [String]
+    var files: [Reference]
     var runOnlyForDeploymentPostprocessing: Bool
 
     override init(items: ProjectFileDictionary) {

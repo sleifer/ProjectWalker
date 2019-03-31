@@ -9,7 +9,7 @@
 import Foundation
 
 class PBXBuildFile: ProjectObject {
-    var fileRef: String
+    var fileRef: Reference
     var settings: [String: String]
 
     override init(items: ProjectFileDictionary) {

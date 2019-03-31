@@ -10,7 +10,7 @@ import Foundation
 
 class PBXShellScriptBuildPhase: ProjectObject {
     var buildActionMask: Int
-    var files: [String]
+    var files: [Reference]
     var inputPaths: [String]
     var outputPaths: [String]
     var runOnlyForDeploymentPostprocessing: Bool

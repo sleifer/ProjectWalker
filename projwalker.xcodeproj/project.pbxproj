@@ -16,13 +16,14 @@
 		DB463C2822510CB000D8EFBC /* ProjectFileArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB463C2722510CB000D8EFBC /* ProjectFileArray.swift */; };
 		DB463C2C2251467300D8EFBC /* PBXBuildFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB463C2B2251467300D8EFBC /* PBXBuildFile.swift */; };
 		DB463C2E2251478B00D8EFBC /* PBXProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB463C2D2251478B00D8EFBC /* PBXProject.swift */; };
-		DB463C3022514A5000D8EFBC /* PBXNativeTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB463C2F22514A5000D8EFBC /* PBXNativeTarget.swift */; };
+		DB463C3022514A5000D8EFBC /* PBXTargetDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB463C2F22514A5000D8EFBC /* PBXTargetDependency.swift */; };
 		DB463C3222514AF100D8EFBC /* XCBuildConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB463C3122514AF100D8EFBC /* XCBuildConfiguration.swift */; };
 		DB463C3422514B7300D8EFBC /* XCConfigurationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB463C3322514B7300D8EFBC /* XCConfigurationList.swift */; };
 		DB463C3622514D3F00D8EFBC /* PBXFrameworksBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB463C3522514D3F00D8EFBC /* PBXFrameworksBuildPhase.swift */; };
 		DB463C3822514E3F00D8EFBC /* PBXShellScriptBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB463C3722514E3F00D8EFBC /* PBXShellScriptBuildPhase.swift */; };
 		DB463C3A22514F1E00D8EFBC /* PBXCopyFilesBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB463C3922514F1E00D8EFBC /* PBXCopyFilesBuildPhase.swift */; };
 		DB463C3C22514FA900D8EFBC /* PBXSourcesBuildPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB463C3B22514FA900D8EFBC /* PBXSourcesBuildPhase.swift */; };
+		DB463C3E225152E200D8EFBC /* PBXNativeTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB463C3D225152E200D8EFBC /* PBXNativeTarget.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -48,13 +49,14 @@
 		DB463C2722510CB000D8EFBC /* ProjectFileArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectFileArray.swift; sourceTree = "<group>"; };
 		DB463C2B2251467300D8EFBC /* PBXBuildFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXBuildFile.swift; sourceTree = "<group>"; };
 		DB463C2D2251478B00D8EFBC /* PBXProject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXProject.swift; sourceTree = "<group>"; };
-		DB463C2F22514A5000D8EFBC /* PBXNativeTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXNativeTarget.swift; sourceTree = "<group>"; };
+		DB463C2F22514A5000D8EFBC /* PBXTargetDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXTargetDependency.swift; sourceTree = "<group>"; };
 		DB463C3122514AF100D8EFBC /* XCBuildConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCBuildConfiguration.swift; sourceTree = "<group>"; };
 		DB463C3322514B7300D8EFBC /* XCConfigurationList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCConfigurationList.swift; sourceTree = "<group>"; };
 		DB463C3522514D3F00D8EFBC /* PBXFrameworksBuildPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXFrameworksBuildPhase.swift; sourceTree = "<group>"; };
 		DB463C3722514E3F00D8EFBC /* PBXShellScriptBuildPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXShellScriptBuildPhase.swift; sourceTree = "<group>"; };
 		DB463C3922514F1E00D8EFBC /* PBXCopyFilesBuildPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXCopyFilesBuildPhase.swift; sourceTree = "<group>"; };
 		DB463C3B22514FA900D8EFBC /* PBXSourcesBuildPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXSourcesBuildPhase.swift; sourceTree = "<group>"; };
+		DB463C3D225152E200D8EFBC /* PBXNativeTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXNativeTarget.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,10 +95,11 @@
 				DB463C1D2250FA9700D8EFBC /* PBXFileReference.swift */,
 				DB463C3522514D3F00D8EFBC /* PBXFrameworksBuildPhase.swift */,
 				DB463C2522510B6900D8EFBC /* PBXGroup.swift */,
-				DB463C2F22514A5000D8EFBC /* PBXNativeTarget.swift */,
+				DB463C3D225152E200D8EFBC /* PBXNativeTarget.swift */,
 				DB463C2D2251478B00D8EFBC /* PBXProject.swift */,
 				DB463C3722514E3F00D8EFBC /* PBXShellScriptBuildPhase.swift */,
 				DB463C3B22514FA900D8EFBC /* PBXSourcesBuildPhase.swift */,
+				DB463C2F22514A5000D8EFBC /* PBXTargetDependency.swift */,
 				DB463C212250FB8700D8EFBC /* Project.swift */,
 				DB463C2722510CB000D8EFBC /* ProjectFileArray.swift */,
 				DB463C232250FC4600D8EFBC /* ProjectFileDictionary.swift */,
@@ -164,10 +167,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB463C3022514A5000D8EFBC /* PBXNativeTarget.swift in Sources */,
+				DB463C3022514A5000D8EFBC /* PBXTargetDependency.swift in Sources */,
 				DB463C1F2250FA9700D8EFBC /* PBXFileReference.swift in Sources */,
 				DB463C202250FA9700D8EFBC /* ProjectObject.swift in Sources */,
 				DB463C2622510B6900D8EFBC /* PBXGroup.swift in Sources */,
+				DB463C3E225152E200D8EFBC /* PBXNativeTarget.swift in Sources */,
 				DB463C3C22514FA900D8EFBC /* PBXSourcesBuildPhase.swift in Sources */,
 				DB463C2822510CB000D8EFBC /* ProjectFileArray.swift in Sources */,
 				DB463C3822514E3F00D8EFBC /* PBXShellScriptBuildPhase.swift in Sources */,

@@ -39,9 +39,11 @@ class Project {
 
         let filtered = Array(Set(types)).sorted()
 
-        print("Unhandled Object Types: \(filtered.count)")
-        for item in filtered {
-            print(" \(item)")
+        if filtered.count != 0 {
+            print("Unhandled Object Types: \(filtered.count)")
+            for item in filtered {
+                print(" \(item)")
+            }
         }
     }
 }

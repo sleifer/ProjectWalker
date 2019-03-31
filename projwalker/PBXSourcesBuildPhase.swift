@@ -10,7 +10,7 @@ import Foundation
 
 class PBXSourcesBuildPhase: ProjectObject {
     var buildActionMask: Int
-    var files: [String]
+    var files: [Reference]
     var runOnlyForDeploymentPostprocessing: Bool
 
     override init(items: ProjectFileDictionary) {
