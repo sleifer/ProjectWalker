@@ -24,4 +24,24 @@ class Project {
     func root() -> PBXProject? {
         return objects[rootObject] as? PBXProject
     }
+
+    func dumpUnhandledTypes() {
+        let generics = objects.values.filter({ (obj: ProjectObject) -> Bool in
+            if type(of: obj) == ProjectObject.self {
+                return true
+            }
+            return false
+        })
+
+        let types = generics.map { (obj: ProjectObject) -> String in
+            return obj.items.string(forKey: "isa") ?? "<unknown>"
+        }
+
+        let filtered = Array(Set(types)).sorted()
+
+        print("Unhandled Object Types: \(filtered.count)")
+        for item in filtered {
+            print(" \(item)")
+        }
+    }
 }
