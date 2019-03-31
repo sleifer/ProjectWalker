@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PBXCopyFilesBuildPhase: ProjectObject {
+class PBXCopyFilesBuildPhase: PBXBuildPhase {
     var buildActionMask: Int?
     var dstPath: String?
     var dstSubfolderSpec: Int?
@@ -23,5 +23,14 @@ class PBXCopyFilesBuildPhase: ProjectObject {
         self.runOnlyForDeploymentPostprocessing = items.bool(forKey: "runOnlyForDeploymentPostprocessing")
 
         super.init(items: items)
+    }
+
+    func getFiles() -> [PBXBuildFile]? {
+        if let objects = project?.objects, let files = files {
+            return files.compactMap({ (key) -> PBXBuildFile? in
+                return objects[key] as? PBXBuildFile
+            })
+        }
+        return nil
     }
 }

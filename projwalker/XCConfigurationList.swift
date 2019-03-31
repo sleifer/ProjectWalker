@@ -21,4 +21,13 @@ class XCConfigurationList: ProjectObject {
         super.init(items: items)
 
     }
+
+    func getBuildConfigurations() -> [XCBuildConfiguration]? {
+        if let objects = project?.objects, let keys = buildConfigurations {
+            return keys.compactMap({ (key) -> XCBuildConfiguration? in
+                return objects[key] as? XCBuildConfiguration
+            })
+        }
+        return nil
+    }
 }

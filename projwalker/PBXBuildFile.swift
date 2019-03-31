@@ -18,4 +18,11 @@ class PBXBuildFile: ProjectObject {
 
         super.init(items: items)
     }
+
+    func getFileRef() -> PBXFileReference? {
+        if let objects = project?.objects, let key = fileRef {
+            return objects[key] as? PBXFileReference
+        }
+        return nil
+    }
 }

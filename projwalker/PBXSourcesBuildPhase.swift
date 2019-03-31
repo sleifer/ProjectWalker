@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PBXSourcesBuildPhase: ProjectObject {
+class PBXSourcesBuildPhase: PBXBuildPhase {
     var buildActionMask: Int?
     var files: [Reference]?
     var runOnlyForDeploymentPostprocessing: Bool?
@@ -19,5 +19,14 @@ class PBXSourcesBuildPhase: ProjectObject {
         self.runOnlyForDeploymentPostprocessing = items.bool(forKey: "runOnlyForDeploymentPostprocessing")
 
         super.init(items: items)
+    }
+
+    func getFiles() -> [PBXBuildFile]? {
+        if let objects = project?.objects, let files = files {
+            return files.compactMap({ (key) -> PBXBuildFile? in
+                return objects[key] as? PBXBuildFile
+            })
+        }
+        return nil
     }
 }

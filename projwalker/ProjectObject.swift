@@ -4,6 +4,7 @@ typealias Reference = String
 
 class ProjectObject {
     var items: ProjectFileDictionary
+    var project: Project?
 
     init() {
         items = [:]
@@ -40,6 +41,8 @@ class ProjectObject {
                 return PBXSourcesBuildPhase(items: items)
             case "PBXNativeTarget":
                 return PBXNativeTarget(items: items)
+            case "PBXContainerItemProxy":
+                return PBXContainerItemProxy(items: items)
             default:
                 return ProjectObject(items: items)
             }

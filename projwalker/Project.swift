@@ -12,7 +12,7 @@ class Project {
     var archiveVersion: Int
     var objectVersion: Int
     var rootObject: String
-    var objects: [String: ProjectObject]
+    private(set) var objects: [String: ProjectObject]
 
     init() {
         archiveVersion = 0
@@ -21,7 +21,12 @@ class Project {
         objects = [:]
     }
 
-    func root() -> PBXProject? {
+    func add(object: ProjectObject, for key: String) {
+        objects[key] = object
+        object.project = self
+    }
+    
+    func project() -> PBXProject? {
         return objects[rootObject] as? PBXProject
     }
 

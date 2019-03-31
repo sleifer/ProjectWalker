@@ -18,4 +18,18 @@ class PBXTargetDependency: ProjectObject {
 
         super.init(items: items)
     }
+
+    func getTarget() -> PBXNativeTarget? {
+        if let objects = project?.objects, let key = target {
+            return objects[key] as? PBXNativeTarget
+        }
+        return nil
+    }
+
+    func getTargetProxy() -> PBXContainerItemProxy? {
+        if let objects = project?.objects, let key = targetProxy {
+            return objects[key] as? PBXContainerItemProxy
+        }
+        return nil
+    }
 }

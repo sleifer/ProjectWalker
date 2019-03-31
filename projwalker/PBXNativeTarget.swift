@@ -30,4 +30,36 @@ class PBXNativeTarget: ProjectObject {
 
         super.init(items: items)
     }
+
+    func getBuildConfigurationList() -> XCConfigurationList? {
+        if let objects = project?.objects, let key = buildConfigurationList {
+            return objects[key] as? XCConfigurationList
+        }
+        return nil
+    }
+
+    func getBuildPhases() -> [PBXBuildPhase]? {
+        if let objects = project?.objects, let files = buildPhases {
+            return files.compactMap({ (key) -> PBXBuildPhase? in
+                return objects[key] as? PBXBuildPhase
+            })
+        }
+        return nil
+    }
+
+    func getDependencies() -> [PBXTargetDependency]? {
+        if let objects = project?.objects, let files = dependencies {
+            return files.compactMap({ (key) -> PBXTargetDependency? in
+                return objects[key] as? PBXTargetDependency
+            })
+        }
+        return nil
+    }
+
+    func getProductReference() -> PBXFileReference? {
+        if let objects = project?.objects, let key = productReference {
+            return objects[key] as? PBXFileReference
+        }
+        return nil
+    }
 }

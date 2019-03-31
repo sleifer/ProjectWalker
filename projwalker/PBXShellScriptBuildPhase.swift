@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PBXShellScriptBuildPhase: ProjectObject {
+class PBXShellScriptBuildPhase: PBXBuildPhase {
     var buildActionMask: Int?
     var files: [Reference]?
     var inputPaths: [String]?
@@ -27,5 +27,14 @@ class PBXShellScriptBuildPhase: ProjectObject {
         self.shellScript = items.string(forKey: "shellScript")
 
         super.init(items: items)
+    }
+
+    func getFiles() -> [PBXBuildFile]? {
+        if let objects = project?.objects, let files = files {
+            return files.compactMap({ (key) -> PBXBuildFile? in
+                return objects[key] as? PBXBuildFile
+            })
+        }
+        return nil
     }
 }

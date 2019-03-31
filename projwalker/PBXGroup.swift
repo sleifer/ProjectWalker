@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PBXGroup: ProjectObject {
+class PBXGroup: PBXFileElement {
     var children: [Reference]?
     var name: String?
     var sourceTree: String?
@@ -19,5 +19,14 @@ class PBXGroup: ProjectObject {
         self.children = items.stringArray(forKey: "children")
 
         super.init(items: items)
+    }
+    
+    func getChildren() -> [PBXFileElement]? {
+        if let objects = project?.objects, let children = children {
+            return children.compactMap({ (key) -> PBXFileElement? in
+                return objects[key] as? PBXFileElement
+            })
+        }
+        return nil
     }
 }

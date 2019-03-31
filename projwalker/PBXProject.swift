@@ -36,4 +36,34 @@ class PBXProject: ProjectObject {
 
         super.init(items: items)
     }
+
+    func getBuildConfigurationList() -> XCConfigurationList? {
+        if let objects = project?.objects, let key = buildConfigurationList {
+            return objects[key] as? XCConfigurationList
+        }
+        return nil
+    }
+
+    func getMainGroup() -> PBXGroup? {
+        if let objects = project?.objects, let key = mainGroup {
+            return objects[key] as? PBXGroup
+        }
+        return nil
+    }
+
+    func getProductRefGroup() -> PBXGroup? {
+        if let objects = project?.objects, let key = productRefGroup {
+            return objects[key] as? PBXGroup
+        }
+        return nil
+    }
+
+    func getTargets() -> [PBXNativeTarget]? {
+        if let objects = project?.objects, let targets = targets {
+            return targets.compactMap({ (key) -> PBXNativeTarget? in
+                return objects[key] as? PBXNativeTarget
+            })
+        }
+        return nil
+    }
 }

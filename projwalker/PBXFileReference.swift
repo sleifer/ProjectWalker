@@ -1,6 +1,6 @@
 import Foundation
 
-class PBXFileReference: ProjectObject {
+class PBXFileReference: PBXFileElement {
     var fileEncoding: Int?
     var explicitFileType: String?
     var lastKnownFileType: String?

@@ -32,7 +32,7 @@ for key in plist.keys.sorted() {
             for objectKey in objects.keys.sorted() {
                 if let entry = objects.dictionary(forKey: objectKey) {
                     if let obj = ProjectObject.decode(from: entry) {
-                        project.objects[objectKey] = obj
+                        project.add(object: obj, for: objectKey)
                     }
                 }
             }
@@ -46,5 +46,27 @@ for key in plist.keys.sorted() {
 }
 
 project.dumpUnhandledTypes()
-let proj = project.root()
-print(proj)
+if let proj = project.project() {
+    print(proj)
+    if let targets = proj.getTargets() {
+        for target in targets {
+            print(target)
+            if let configList = target.getBuildConfigurationList() {
+                print(configList)
+                print("default: \(configList.defaultConfigurationName ?? "<none>")")
+                if let configurations = configList.getBuildConfigurations() {
+                    for configuration in configurations {
+                        print(configuration)
+                        print("base: \(configuration.baseConfigurationReference ?? "<none>")")
+                        print("name: \(configuration.name ?? "<none>")")
+                        if let settings = configuration.buildSettings {
+                            for (key, value) in settings {
+                                print("\(key) = \(value)")
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
