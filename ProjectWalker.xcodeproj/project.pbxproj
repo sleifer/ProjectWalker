@@ -42,7 +42,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		DB463C132250FA5300D8EFBC /* projwalker */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = projwalker; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB463C132250FA5300D8EFBC /* ProjectWalker */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ProjectWalker; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB463C162250FA5300D8EFBC /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		DB463C1D2250FA9700D8EFBC /* PBXFileReference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBXFileReference.swift; sourceTree = "<group>"; };
 		DB463C1E2250FA9700D8EFBC /* ProjectObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectObject.swift; sourceTree = "<group>"; };
@@ -79,7 +79,7 @@
 		DB463C0A2250FA5300D8EFBC = {
 			isa = PBXGroup;
 			children = (
-				DB463C152250FA5300D8EFBC /* projwalker */,
+				DB463C152250FA5300D8EFBC /* ProjectWalker */,
 				DB463C142250FA5300D8EFBC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -87,12 +87,12 @@
 		DB463C142250FA5300D8EFBC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DB463C132250FA5300D8EFBC /* projwalker */,
+				DB463C132250FA5300D8EFBC /* ProjectWalker */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		DB463C152250FA5300D8EFBC /* projwalker */ = {
+		DB463C152250FA5300D8EFBC /* ProjectWalker */ = {
 			isa = PBXGroup;
 			children = (
 				DB463C162250FA5300D8EFBC /* main.swift */,
@@ -116,15 +116,15 @@
 				DB463C3122514AF100D8EFBC /* XCBuildConfiguration.swift */,
 				DB463C3322514B7300D8EFBC /* XCConfigurationList.swift */,
 			);
-			path = projwalker;
+			path = ProjectWalker;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		DB463C122250FA5300D8EFBC /* projwalker */ = {
+		DB463C122250FA5300D8EFBC /* ProjectWalker */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DB463C1A2250FA5300D8EFBC /* Build configuration list for PBXNativeTarget "projwalker" */;
+			buildConfigurationList = DB463C1A2250FA5300D8EFBC /* Build configuration list for PBXNativeTarget "ProjectWalker" */;
 			buildPhases = (
 				DB463C0F2250FA5300D8EFBC /* Sources */,
 				DB463C102250FA5300D8EFBC /* Frameworks */,
@@ -134,9 +134,9 @@
 			);
 			dependencies = (
 			);
-			name = projwalker;
+			name = ProjectWalker;
 			productName = projwalker;
-			productReference = DB463C132250FA5300D8EFBC /* projwalker */;
+			productReference = DB463C132250FA5300D8EFBC /* ProjectWalker */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -154,7 +154,7 @@
 					};
 				};
 			};
-			buildConfigurationList = DB463C0E2250FA5300D8EFBC /* Build configuration list for PBXProject "projwalker" */;
+			buildConfigurationList = DB463C0E2250FA5300D8EFBC /* Build configuration list for PBXProject "ProjectWalker" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -166,7 +166,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				DB463C122250FA5300D8EFBC /* projwalker */,
+				DB463C122250FA5300D8EFBC /* ProjectWalker */,
 			);
 		};
 /* End PBXProject section */
@@ -340,7 +340,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		DB463C0E2250FA5300D8EFBC /* Build configuration list for PBXProject "projwalker" */ = {
+		DB463C0E2250FA5300D8EFBC /* Build configuration list for PBXProject "ProjectWalker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DB463C182250FA5300D8EFBC /* Debug */,
@@ -349,7 +349,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DB463C1A2250FA5300D8EFBC /* Build configuration list for PBXNativeTarget "projwalker" */ = {
+		DB463C1A2250FA5300D8EFBC /* Build configuration list for PBXNativeTarget "ProjectWalker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DB463C1B2250FA5300D8EFBC /* Debug */,
