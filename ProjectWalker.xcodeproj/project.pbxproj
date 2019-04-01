@@ -121,12 +121,12 @@
 				DB463C3722514E3F00D8EFBC /* PBXShellScriptBuildPhase.swift */,
 				DB463C3B22514FA900D8EFBC /* PBXSourcesBuildPhase.swift */,
 				DB463C2F22514A5000D8EFBC /* PBXTargetDependency.swift */,
-				DB463C212250FB8700D8EFBC /* XcodeProject.swift */,
 				DB463C2722510CB000D8EFBC /* ProjectFileArray.swift */,
 				DB463C232250FC4600D8EFBC /* ProjectFileDictionary.swift */,
 				DB463C1E2250FA9700D8EFBC /* ProjectObject.swift */,
 				DB463C3122514AF100D8EFBC /* XCBuildConfiguration.swift */,
 				DB463C3322514B7300D8EFBC /* XCConfigurationList.swift */,
+				DB463C212250FB8700D8EFBC /* XcodeProject.swift */,
 			);
 			path = ProjectWalker;
 			sourceTree = "<group>";
