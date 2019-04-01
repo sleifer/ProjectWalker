@@ -1,3 +1,11 @@
+//
+//  ProjectObject.swift
+//  projwalker
+//
+//  Created by Simeon Leifer on 3/31/19.
+//  Copyright © 2019 droolingcat.com. All rights reserved.
+//
+
 import Foundation
 
 public typealias Reference = String
@@ -13,6 +21,8 @@ public class ProjectObject {
     public init(items: ProjectFileDictionary) {
         self.items = items
     }
+
+    // swiftlint:disable cyclomatic_complexity
 
     public static func decode(from items: ProjectFileDictionary) -> ProjectObject? {
         if let isa = items["isa"] as? String {
@@ -49,6 +59,8 @@ public class ProjectObject {
         }
         return nil
     }
+
+    // swiftlint:enable cyclomatic_complexity
 
     public func debugDumpItems() {
         print(">>> ProjectObject")

@@ -20,7 +20,7 @@ public class PBXGroup: PBXFileElement {
 
         super.init(items: items)
     }
-    
+
     public func getChildren() -> [PBXFileElement]? {
         if let objects = project?.objects, let children = children {
             return children.compactMap({ (key) -> PBXFileElement? in

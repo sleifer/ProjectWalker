@@ -65,6 +65,7 @@
 		DB463C41225176CA00D8EFBC /* PBXContainerItemProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXContainerItemProxy.swift; sourceTree = "<group>"; };
 		DB463C432251789E00D8EFBC /* PBXBuildPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBXBuildPhase.swift; sourceTree = "<group>"; };
 		DB463C4922518FFF00D8EFBC /* libProjectWalker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libProjectWalker.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB463C692252375F00D8EFBC /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +90,7 @@
 		DB463C0A2250FA5300D8EFBC = {
 			isa = PBXGroup;
 			children = (
+				DB463C692252375F00D8EFBC /* .swiftlint.yml */,
 				DB463C152250FA5300D8EFBC /* ProjectWalker */,
 				DB463C4A22518FFF00D8EFBC /* TestTool */,
 				DB463C142250FA5300D8EFBC /* Products */,
@@ -183,6 +185,7 @@
 				DB463C4522518FFF00D8EFBC /* Headers */,
 				DB463C4622518FFF00D8EFBC /* Sources */,
 				DB463C4722518FFF00D8EFBC /* Frameworks */,
+				DB463C6A2252377200D8EFBC /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -228,6 +231,27 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		DB463C6A2252377200D8EFBC /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		DB463C0F2250FA5300D8EFBC /* Sources */ = {

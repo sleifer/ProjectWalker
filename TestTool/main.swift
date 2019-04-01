@@ -11,25 +11,25 @@ import Foundation
 import ProjectWalker
 
 let path = "/Users/simeon/Documents/Code/git-glide/git-glide.xcodeproj"
-public var project: XcodeProject = XcodeProject(contentsOf: path)
-
-project.dumpUnhandledTypes()
-if let proj = project.project() {
-    print(proj)
-    if let targets = proj.getTargets() {
-        for target in targets {
-            print(target)
-            if let configList = target.getBuildConfigurationList() {
-                print(configList)
-                print("default: \(configList.defaultConfigurationName ?? "<none>")")
-                if let configurations = configList.getBuildConfigurations() {
-                    for configuration in configurations {
-                        print(configuration)
-                        print("base: \(configuration.baseConfigurationReference ?? "<none>")")
-                        print("name: \(configuration.name ?? "<none>")")
-                        if let settings = configuration.buildSettings {
-                            for (key, value) in settings {
-                                print("\(key) = \(value)")
+if let project = XcodeProject(contentsOf: path) {
+    project.dumpUnhandledTypes()
+    if let proj = project.project() {
+        print(proj)
+        if let targets = proj.getTargets() {
+            for target in targets {
+                print(target)
+                if let configList = target.getBuildConfigurationList() {
+                    print(configList)
+                    print("default: \(configList.defaultConfigurationName ?? "<none>")")
+                    if let configurations = configList.getBuildConfigurations() {
+                        for configuration in configurations {
+                            print(configuration)
+                            print("base: \(configuration.baseConfigurationReference ?? "<none>")")
+                            print("name: \(configuration.name ?? "<none>")")
+                            if let settings = configuration.buildSettings {
+                                for (key, value) in settings {
+                                    print("\(key) = \(value)")
+                                }
                             }
                         }
                     }
