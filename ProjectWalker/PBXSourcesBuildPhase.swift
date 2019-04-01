@@ -8,12 +8,12 @@
 
 import Foundation
 
-class PBXSourcesBuildPhase: PBXBuildPhase {
-    var buildActionMask: Int?
-    var files: [Reference]?
-    var runOnlyForDeploymentPostprocessing: Bool?
+public class PBXSourcesBuildPhase: PBXBuildPhase {
+    public var buildActionMask: Int?
+    public var files: [Reference]?
+    public var runOnlyForDeploymentPostprocessing: Bool?
 
-    override init(items: ProjectFileDictionary) {
+    public override init(items: ProjectFileDictionary) {
         self.buildActionMask = items.int(forKey: "buildActionMask")
         self.files = items.stringArray(forKey: "files")
         self.runOnlyForDeploymentPostprocessing = items.bool(forKey: "runOnlyForDeploymentPostprocessing")
@@ -21,7 +21,7 @@ class PBXSourcesBuildPhase: PBXBuildPhase {
         super.init(items: items)
     }
 
-    func getFiles() -> [PBXBuildFile]? {
+    public func getFiles() -> [PBXBuildFile]? {
         if let objects = project?.objects, let files = files {
             return files.compactMap({ (key) -> PBXBuildFile? in
                 return objects[key] as? PBXBuildFile

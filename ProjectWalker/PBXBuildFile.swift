@@ -8,18 +8,18 @@
 
 import Foundation
 
-class PBXBuildFile: ProjectObject {
-    var fileRef: Reference?
-    var settings: [String: String]?
+public class PBXBuildFile: ProjectObject {
+    public var fileRef: Reference?
+    public var settings: [String: String]?
 
-    override init(items: ProjectFileDictionary) {
+    public override init(items: ProjectFileDictionary) {
         self.fileRef = items.string(forKey: "fileRef")
         self.settings = items["settings"] as? [String: String]
 
         super.init(items: items)
     }
 
-    func getFileRef() -> PBXFileReference? {
+    public func getFileRef() -> PBXFileReference? {
         if let objects = project?.objects, let key = fileRef {
             return objects[key] as? PBXFileReference
         }

@@ -1,14 +1,14 @@
 import Foundation
 
-class PBXFileReference: PBXFileElement {
-    var fileEncoding: Int?
-    var explicitFileType: String?
-    var lastKnownFileType: String?
-    var name: String?
-    var path: String?
-    var sourceTree: String?
+public class PBXFileReference: PBXFileElement {
+    public var fileEncoding: Int?
+    public var explicitFileType: String?
+    public var lastKnownFileType: String?
+    public var name: String?
+    public var path: String?
+    public var sourceTree: String?
 
-    override init(items: ProjectFileDictionary) {
+    public override init(items: ProjectFileDictionary) {
         self.fileEncoding = items.int(forKey: "fileEncoding")
         self.explicitFileType = items.string(forKey: "explicitFileType")
         self.lastKnownFileType = items.string(forKey: "lastKnownFileType")

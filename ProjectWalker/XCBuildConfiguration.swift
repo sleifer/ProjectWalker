@@ -8,12 +8,12 @@
 
 import Foundation
 
-class XCBuildConfiguration: ProjectObject {
-    var baseConfigurationReference: String?
-    var buildSettings: [String: String]?
-    var name: String?
+public class XCBuildConfiguration: ProjectObject {
+    public var baseConfigurationReference: String?
+    public var buildSettings: [String: String]?
+    public var name: String?
 
-    override init(items: ProjectFileDictionary) {
+    public override init(items: ProjectFileDictionary) {
         self.baseConfigurationReference = items.string(forKey: "baseConfigurationReference")
         self.buildSettings = items["buildSettings"] as? [String: String]
         self.name = items.string(forKey: "name")

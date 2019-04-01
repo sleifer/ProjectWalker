@@ -8,25 +8,25 @@
 
 import Foundation
 
-class PBXTargetDependency: ProjectObject {
-    var target: Reference?
-    var targetProxy: Reference?
+public class PBXTargetDependency: ProjectObject {
+    public var target: Reference?
+    public var targetProxy: Reference?
 
-    override init(items: ProjectFileDictionary) {
+    public override init(items: ProjectFileDictionary) {
         self.target = items.string(forKey: "target")
         self.targetProxy = items.string(forKey: "targetProxy")
 
         super.init(items: items)
     }
 
-    func getTarget() -> PBXNativeTarget? {
+    public func getTarget() -> PBXNativeTarget? {
         if let objects = project?.objects, let key = target {
             return objects[key] as? PBXNativeTarget
         }
         return nil
     }
 
-    func getTargetProxy() -> PBXContainerItemProxy? {
+    public func getTargetProxy() -> PBXContainerItemProxy? {
         if let objects = project?.objects, let key = targetProxy {
             return objects[key] as? PBXContainerItemProxy
         }

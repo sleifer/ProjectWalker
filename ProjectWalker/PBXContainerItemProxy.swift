@@ -8,13 +8,13 @@
 
 import Foundation
 
-class PBXContainerItemProxy: ProjectObject {
-    var containerPortal: Reference?
-    var proxyType: Int?
-    var remoteGlobalIDString: Reference?
-    var remoteInfo: String?
+public class PBXContainerItemProxy: ProjectObject {
+    public var containerPortal: Reference?
+    public var proxyType: Int?
+    public var remoteGlobalIDString: Reference?
+    public var remoteInfo: String?
 
-    override init(items: ProjectFileDictionary) {
+    public override init(items: ProjectFileDictionary) {
         self.containerPortal = items.string(forKey: "containerPortal")
         self.proxyType = items.int(forKey: "proxyType")
         self.remoteGlobalIDString = items.string(forKey: "remoteGlobalIDString")
@@ -23,7 +23,7 @@ class PBXContainerItemProxy: ProjectObject {
         super.init(items: items)
     }
 
-    func getContainerPortal() -> PBXProject? {
+    public func getContainerPortal() -> PBXProject? {
         if let objects = project?.objects, let key = containerPortal {
             return objects[key] as? PBXProject
         }

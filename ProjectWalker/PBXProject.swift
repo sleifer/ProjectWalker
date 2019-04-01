@@ -8,20 +8,20 @@
 
 import Foundation
 
-class PBXProject: ProjectObject {
-    var buildConfigurationList: Reference?
-    var compatibilityVersion: String?
-    var developmentRegion: String?
-    var hasScannedForEncodings: Bool?
-    var knownRegions: [String]?
-    var mainGroup: Reference?
-    var productRefGroup: Reference?
-    var projectDirPath: String?
-    var projectReferences: ProjectFileDictionary?
-    var projectRoot: String?
-    var targets: [Reference]?
+public class PBXProject: ProjectObject {
+    public var buildConfigurationList: Reference?
+    public var compatibilityVersion: String?
+    public var developmentRegion: String?
+    public var hasScannedForEncodings: Bool?
+    public var knownRegions: [String]?
+    public var mainGroup: Reference?
+    public var productRefGroup: Reference?
+    public var projectDirPath: String?
+    public var projectReferences: ProjectFileDictionary?
+    public var projectRoot: String?
+    public var targets: [Reference]?
 
-    override init(items: ProjectFileDictionary) {
+    public override init(items: ProjectFileDictionary) {
         self.buildConfigurationList = items.string(forKey: "buildConfigurationList")
         self.compatibilityVersion = items.string(forKey: "compatibilityVersion")
         self.developmentRegion = items.string(forKey: "developmentRegion")
@@ -37,28 +37,28 @@ class PBXProject: ProjectObject {
         super.init(items: items)
     }
 
-    func getBuildConfigurationList() -> XCConfigurationList? {
+    public func getBuildConfigurationList() -> XCConfigurationList? {
         if let objects = project?.objects, let key = buildConfigurationList {
             return objects[key] as? XCConfigurationList
         }
         return nil
     }
 
-    func getMainGroup() -> PBXGroup? {
+    public func getMainGroup() -> PBXGroup? {
         if let objects = project?.objects, let key = mainGroup {
             return objects[key] as? PBXGroup
         }
         return nil
     }
 
-    func getProductRefGroup() -> PBXGroup? {
+    public func getProductRefGroup() -> PBXGroup? {
         if let objects = project?.objects, let key = productRefGroup {
             return objects[key] as? PBXGroup
         }
         return nil
     }
 
-    func getTargets() -> [PBXNativeTarget]? {
+    public func getTargets() -> [PBXNativeTarget]? {
         if let objects = project?.objects, let targets = targets {
             return targets.compactMap({ (key) -> PBXNativeTarget? in
                 return objects[key] as? PBXNativeTarget

@@ -8,12 +8,12 @@
 
 import Foundation
 
-class PBXGroup: PBXFileElement {
-    var children: [Reference]?
-    var name: String?
-    var sourceTree: String?
+public class PBXGroup: PBXFileElement {
+    public var children: [Reference]?
+    public var name: String?
+    public var sourceTree: String?
 
-    override init(items: ProjectFileDictionary) {
+    public override init(items: ProjectFileDictionary) {
         self.name = items.string(forKey: "name")
         self.sourceTree = items.string(forKey: "sourceTree")
         self.children = items.stringArray(forKey: "children")
@@ -21,7 +21,7 @@ class PBXGroup: PBXFileElement {
         super.init(items: items)
     }
     
-    func getChildren() -> [PBXFileElement]? {
+    public func getChildren() -> [PBXFileElement]? {
         if let objects = project?.objects, let children = children {
             return children.compactMap({ (key) -> PBXFileElement? in
                 return objects[key] as? PBXFileElement

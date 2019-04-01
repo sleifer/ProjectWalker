@@ -8,17 +8,17 @@
 
 import Foundation
 
-class PBXNativeTarget: ProjectObject {
-    var buildConfigurationList: Reference?
-    var buildPhases: [Reference]?
-    var dependencies: [Reference]?
-    var name: String?
-    var productInstallPath: String?
-    var productName: String?
-    var productReference: Reference?
-    var productType: String?
+public class PBXNativeTarget: ProjectObject {
+    public var buildConfigurationList: Reference?
+    public var buildPhases: [Reference]?
+    public var dependencies: [Reference]?
+    public var name: String?
+    public var productInstallPath: String?
+    public var productName: String?
+    public var productReference: Reference?
+    public var productType: String?
 
-    override init(items: ProjectFileDictionary) {
+    public override init(items: ProjectFileDictionary) {
         self.buildConfigurationList = items.string(forKey: "buildConfigurationList")
         self.buildPhases = items.stringArray(forKey: "buildPhases")
         self.dependencies = items.stringArray(forKey: "dependencies")
@@ -31,14 +31,14 @@ class PBXNativeTarget: ProjectObject {
         super.init(items: items)
     }
 
-    func getBuildConfigurationList() -> XCConfigurationList? {
+    public func getBuildConfigurationList() -> XCConfigurationList? {
         if let objects = project?.objects, let key = buildConfigurationList {
             return objects[key] as? XCConfigurationList
         }
         return nil
     }
 
-    func getBuildPhases() -> [PBXBuildPhase]? {
+    public func getBuildPhases() -> [PBXBuildPhase]? {
         if let objects = project?.objects, let files = buildPhases {
             return files.compactMap({ (key) -> PBXBuildPhase? in
                 return objects[key] as? PBXBuildPhase
@@ -47,7 +47,7 @@ class PBXNativeTarget: ProjectObject {
         return nil
     }
 
-    func getDependencies() -> [PBXTargetDependency]? {
+    public func getDependencies() -> [PBXTargetDependency]? {
         if let objects = project?.objects, let files = dependencies {
             return files.compactMap({ (key) -> PBXTargetDependency? in
                 return objects[key] as? PBXTargetDependency
@@ -56,7 +56,7 @@ class PBXNativeTarget: ProjectObject {
         return nil
     }
 
-    func getProductReference() -> PBXFileReference? {
+    public func getProductReference() -> PBXFileReference? {
         if let objects = project?.objects, let key = productReference {
             return objects[key] as? PBXFileReference
         }

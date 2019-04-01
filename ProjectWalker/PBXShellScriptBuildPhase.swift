@@ -8,16 +8,16 @@
 
 import Foundation
 
-class PBXShellScriptBuildPhase: PBXBuildPhase {
-    var buildActionMask: Int?
-    var files: [Reference]?
-    var inputPaths: [String]?
-    var outputPaths: [String]?
-    var runOnlyForDeploymentPostprocessing: Bool?
-    var shellPath: String?
-    var shellScript: String?
+public class PBXShellScriptBuildPhase: PBXBuildPhase {
+    public var buildActionMask: Int?
+    public var files: [Reference]?
+    public var inputPaths: [String]?
+    public var outputPaths: [String]?
+    public var runOnlyForDeploymentPostprocessing: Bool?
+    public var shellPath: String?
+    public var shellScript: String?
 
-    override init(items: ProjectFileDictionary) {
+    public override init(items: ProjectFileDictionary) {
         self.buildActionMask = items.int(forKey: "buildActionMask")
         self.files = items.stringArray(forKey: "files")
         self.inputPaths = items.stringArray(forKey: "inputPaths")
@@ -29,7 +29,7 @@ class PBXShellScriptBuildPhase: PBXBuildPhase {
         super.init(items: items)
     }
 
-    func getFiles() -> [PBXBuildFile]? {
+    public func getFiles() -> [PBXBuildFile]? {
         if let objects = project?.objects, let files = files {
             return files.compactMap({ (key) -> PBXBuildFile? in
                 return objects[key] as? PBXBuildFile

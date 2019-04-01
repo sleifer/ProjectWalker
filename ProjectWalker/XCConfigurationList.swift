@@ -8,12 +8,12 @@
 
 import Foundation
 
-class XCConfigurationList: ProjectObject {
-    var buildConfigurations: [Reference]?
-    var defaultConfigurationIsVisible: Bool?
-    var defaultConfigurationName: String?
+public class XCConfigurationList: ProjectObject {
+    public var buildConfigurations: [Reference]?
+    public var defaultConfigurationIsVisible: Bool?
+    public var defaultConfigurationName: String?
 
-    override init(items: ProjectFileDictionary) {
+    public override init(items: ProjectFileDictionary) {
         self.buildConfigurations = items.stringArray(forKey: "buildConfigurations")
         self.defaultConfigurationIsVisible = items.bool(forKey: "defaultConfigurationIsVisible")
         self.defaultConfigurationName = items.string(forKey: "defaultConfigurationName")
@@ -22,7 +22,7 @@ class XCConfigurationList: ProjectObject {
 
     }
 
-    func getBuildConfigurations() -> [XCBuildConfiguration]? {
+    public func getBuildConfigurations() -> [XCBuildConfiguration]? {
         if let objects = project?.objects, let keys = buildConfigurations {
             return keys.compactMap({ (key) -> XCBuildConfiguration? in
                 return objects[key] as? XCBuildConfiguration

@@ -8,29 +8,29 @@
 
 import Foundation
 
-class Project {
-    var archiveVersion: Int
-    var objectVersion: Int
-    var rootObject: String
-    private(set) var objects: [String: ProjectObject]
+public class XcodeProject {
+    public var archiveVersion: Int
+    public var objectVersion: Int
+    public var rootObject: String
+    private(set) public var objects: [String: ProjectObject]
 
-    init() {
+    public init() {
         archiveVersion = 0
         objectVersion = 0
         rootObject = ""
         objects = [:]
     }
 
-    func add(object: ProjectObject, for key: String) {
+    public func add(object: ProjectObject, for key: String) {
         objects[key] = object
         object.project = self
     }
     
-    func project() -> PBXProject? {
+    public func project() -> PBXProject? {
         return objects[rootObject] as? PBXProject
     }
 
-    func dumpUnhandledTypes() {
+    public func dumpUnhandledTypes() {
         let generics = objects.values.filter({ (obj: ProjectObject) -> Bool in
             if type(of: obj) == ProjectObject.self {
                 return true

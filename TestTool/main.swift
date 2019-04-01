@@ -8,13 +8,15 @@
 
 import Foundation
 
+import ProjectWalker
+
 let path = "/Users/simeon/Documents/Code/git-glide/git-glide.xcodeproj/project.pbxproj"
 let url = URL(fileURLWithPath: path)
 let data = try! Data(contentsOf: url)
-var format: PropertyListSerialization.PropertyListFormat = .xml
+public var format: PropertyListSerialization.PropertyListFormat = .xml
 let plist: ProjectFileDictionary = try! PropertyListSerialization.propertyList(from: data, options: [.mutableContainersAndLeaves], format: &format) as? ProjectFileDictionary ?? [:]
 
-var project: Project = Project()
+public var project: XcodeProject = XcodeProject()
 
 for key in plist.keys.sorted() {
     if key == "archiveVersion" {

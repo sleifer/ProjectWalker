@@ -8,29 +8,29 @@
 
 import Foundation
 
-typealias ProjectFileDictionary = [String: AnyObject]
+public typealias ProjectFileDictionary = [String: AnyObject]
 
-extension ProjectFileDictionary {
-    func int(forKey key: String) -> Int? {
+public extension ProjectFileDictionary {
+    public func int(forKey key: String) -> Int? {
         if let value = self[key] as? String {
             return Int(value)
         }
         return nil
     }
 
-    func string(forKey key: String) -> String? {
+    public func string(forKey key: String) -> String? {
         return self[key] as? String
     }
 
-    func array(forKey key: String) -> ProjectFileArray? {
+    public func array(forKey key: String) -> ProjectFileArray? {
         return self[key] as? ProjectFileArray
     }
 
-    func dictionary(forKey key: String) -> ProjectFileDictionary? {
+    public func dictionary(forKey key: String) -> ProjectFileDictionary? {
         return self[key] as? ProjectFileDictionary
     }
 
-    func bool(forKey key: String) -> Bool? {
+    public func bool(forKey key: String) -> Bool? {
         if let value = self[key] as? String {
             if let intValue = Int(value) {
                 if intValue == 0 {
@@ -42,7 +42,7 @@ extension ProjectFileDictionary {
         return nil
     }
 
-    func stringArray(forKey key: String) -> [String]? {
+    public func stringArray(forKey key: String) -> [String]? {
         if let value = self[key] as? [String] {
             return value
         }

@@ -8,5 +8,5 @@
 
 import Foundation
 
-class PBXFileElement: ProjectObject {
+public class PBXFileElement: ProjectObject {
 }

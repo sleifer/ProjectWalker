@@ -8,10 +8,10 @@
 
 import Foundation
 
-typealias ProjectFileArray = [AnyObject]
+public typealias ProjectFileArray = [AnyObject]
 
-extension ProjectFileArray {
-    func int(forIndex index: Int) -> Int? {
+public extension ProjectFileArray {
+    public func int(forIndex index: Int) -> Int? {
         if index < self.count {
             if let value = self[index] as? String {
                 return Int(value)
@@ -20,21 +20,21 @@ extension ProjectFileArray {
         return nil
     }
 
-    func string(forIndex index: Int) -> String? {
+    public func string(forIndex index: Int) -> String? {
         if index < self.count {
             return self[index] as? String
         }
         return nil
     }
 
-    func array(forIndex index: Int) -> ProjectFileArray? {
+    public func array(forIndex index: Int) -> ProjectFileArray? {
         if index < self.count {
             return self[index] as? ProjectFileArray
         }
         return nil
     }
 
-    func dictionary(forIndex index: Int) -> ProjectFileDictionary? {
+    public func dictionary(forIndex index: Int) -> ProjectFileDictionary? {
         if index < self.count {
             return self[index] as? ProjectFileDictionary
         }

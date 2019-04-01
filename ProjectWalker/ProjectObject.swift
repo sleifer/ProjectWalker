@@ -1,20 +1,20 @@
 import Foundation
 
-typealias Reference = String
+public typealias Reference = String
 
-class ProjectObject {
-    var items: ProjectFileDictionary
-    var project: Project?
+public class ProjectObject {
+    public var items: ProjectFileDictionary
+    public var project: XcodeProject?
 
-    init() {
+    public init() {
         items = [:]
     }
 
-    init(items: ProjectFileDictionary) {
+    public init(items: ProjectFileDictionary) {
         self.items = items
     }
 
-    static func decode(from items: ProjectFileDictionary) -> ProjectObject? {
+    public static func decode(from items: ProjectFileDictionary) -> ProjectObject? {
         if let isa = items["isa"] as? String {
             switch isa {
             case "PBXFileReference":
@@ -50,7 +50,7 @@ class ProjectObject {
         return nil
     }
 
-    func debugDumpItems() {
+    public func debugDumpItems() {
         print(">>> ProjectObject")
         dump(items)
         print("<<<")
