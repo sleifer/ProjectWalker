@@ -68,6 +68,7 @@ public class XcodeProject {
     public func add(object: ProjectObject, for key: String) {
         objects[key] = object
         object.project = self
+        object.referenceKey = key
     }
 
     public func project() -> PBXProject? {

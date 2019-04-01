@@ -10,16 +10,19 @@ import Foundation
 
 public typealias Reference = String
 
-public class ProjectObject {
+public class ProjectObject: Hashable {
     public var items: ProjectFileDictionary
     public var project: XcodeProject?
+    public var referenceKey: String
 
     public init() {
-        items = [:]
+        self.items = [:]
+        self.referenceKey = UUID().uuidString
     }
 
     public init(items: ProjectFileDictionary) {
         self.items = items
+        self.referenceKey = UUID().uuidString
     }
 
     // swiftlint:disable cyclomatic_complexity
@@ -66,5 +69,16 @@ public class ProjectObject {
         print(">>> ProjectObject")
         dump(items)
         print("<<<")
+    }
+
+    public static func == (lhs: ProjectObject, rhs: ProjectObject) -> Bool {
+        if lhs.referenceKey == rhs.referenceKey {
+            return true
+        }
+        return false
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(referenceKey)
     }
 }
