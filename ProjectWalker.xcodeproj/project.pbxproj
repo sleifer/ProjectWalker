@@ -203,7 +203,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1020;
-				LastUpgradeCheck = 1020;
+				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = droolingcat.com;
 				TargetAttributes = {
 					DB463C122250FA5300D8EFBC = {
@@ -220,6 +220,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = DB463C0A2250FA5300D8EFBC;
 			productRefGroup = DB463C142250FA5300D8EFBC /* Products */;
@@ -409,6 +410,7 @@
 		DB463C1B2250FA5300D8EFBC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5886TSL9MF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -419,6 +421,7 @@
 		DB463C1C2250FA5300D8EFBC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5886TSL9MF;
 				PRODUCT_NAME = "$(TARGET_NAME)";

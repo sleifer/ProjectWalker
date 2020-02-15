@@ -10,7 +10,7 @@ import Foundation
 
 import ProjectWalker
 
-let path = "/Users/simeon/Documents/Code/git-glide/git-glide.xcodeproj"
+let path = "/Users/simeon/Desktop/test/test.xcodeproj"
 if let project = XcodeProject(contentsOf: path) {
     project.dumpUnhandledTypes()
     if let proj = project.project() {
@@ -26,11 +26,13 @@ if let project = XcodeProject(contentsOf: path) {
                             print(configuration)
                             print("base: \(configuration.baseConfigurationReference ?? "<none>")")
                             print("name: \(configuration.name ?? "<none>")")
-                            if let settings = configuration.buildSettings {
-                                for (key, value) in settings {
-                                    print("\(key) = \(value)")
-                                }
-                            }
+                            print("marketing version: \(configuration.buildSettings?["MARKETING_VERSION"] as? String ?? "<missing>")")
+                            print("current project version: \(configuration.buildSettings?["CURRENT_PROJECT_VERSION"] as? String ?? "<missing>")")
+//                            if let settings = configuration.buildSettings {
+//                                for (key, value) in settings {
+//                                    print("\(key) = \(value) .. \(type(of: value))")
+//                                }
+//                            }
                         }
                     }
                 }
