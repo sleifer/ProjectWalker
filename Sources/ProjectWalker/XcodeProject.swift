@@ -61,6 +61,7 @@ public class XcodeProject {
                 }
             }
         } catch {
+            print(error)
             return nil
         }
     }
