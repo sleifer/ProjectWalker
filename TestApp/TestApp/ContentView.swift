@@ -13,18 +13,30 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-        Text("Hello, World!")
+            Text("Hello, World!")
+                .padding(.top)
             Button(action: {
                 self.tests.readTest()
             }) {
                 Text("Run readTest")
             }
+            Button(action: {
+                self.tests.configurationsTest()
+            }) {
+                Text("Run configurationsTest")
+            }
+            .disabled(self.tests.project == nil)
+            Button(action: {
+                self.tests.infoOnUnhandled()
+            }) {
+                Text("Run infoOnUnhandled")
+            }
+            .disabled(self.tests.project == nil)
             Spacer()
         }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
-
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

@@ -76,7 +76,7 @@ public class XcodeProject {
         return objects[rootObject] as? PBXProject
     }
 
-    public func dumpUnhandledTypes() {
+    public func unhandledTypes() -> [String] {
         let generics = objects.values.filter({ (obj: ProjectObject) -> Bool in
             if type(of: obj) == ProjectObject.self {
                 return true
@@ -89,6 +89,12 @@ public class XcodeProject {
         }
 
         let filtered = Array(Set(types)).sorted()
+
+        return filtered
+    }
+
+    public func dumpUnhandledTypes() {
+        let filtered = unhandledTypes()
 
         if filtered.count != 0 {
             print("Unhandled Object Types: \(filtered.count)")

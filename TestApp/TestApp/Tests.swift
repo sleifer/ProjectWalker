@@ -10,10 +10,18 @@ import Foundation
 import ProjectWalker
 
 class Tests: ObservableObject {
+    @Published var project: XcodeProject?
+
     func readTest() {
         let path = "/Users/simeon/Desktop/test2/test2.xcodeproj"
-        if let project = XcodeProject(contentsOf: path) {
+        project = XcodeProject(contentsOf: path)
+        if let project = project {
             project.dumpUnhandledTypes()
+        }
+    }
+
+    func configurationsTest() {
+        if let project = project {
             if let proj = project.project() {
                 print(proj)
                 if let targets = proj.getTargets() {
@@ -25,20 +33,39 @@ class Tests: ObservableObject {
                             if let configurations = configList.getBuildConfigurations() {
                                 for configuration in configurations {
                                     print(configuration)
-                                    print("base: \(configuration.baseConfigurationReference ?? "<none>")")
-                                    print("name: \(configuration.name ?? "<none>")")
-                                    print("marketing version: \(configuration.buildSettings?["MARKETING_VERSION"] as? String ?? "<missing>")")
-                                    print("current project version: \(configuration.buildSettings?["CURRENT_PROJECT_VERSION"] as? String ?? "<missing>")")
-//                            if let settings = configuration.buildSettings {
-//                                for (key, value) in settings {
-//                                    print("\(key) = \(value) .. \(type(of: value))")
-//                                }
-//                            }
+                                    if let settings = configuration.buildSettings {
+                                        for (key, value) in settings {
+                                            print("\(key) = \(value) .. \(type(of: value))")
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
                 }
+            }
+        }
+    }
+
+    func infoOnUnhandled() {
+        if let project = project {
+            let types = project.unhandledTypes()
+
+            for oneType in types {
+                let objects = project.objects.values.filter { (obj) -> Bool in
+                    if obj.items.string(forKey: "isa") == oneType {
+                        return true
+                    }
+                    return false
+                }
+
+                print("\(oneType): \(objects.count)")
+                if let first = objects.first {
+                    print("referenceKey: \(first.referenceKey)")
+                    print("items:")
+                    dump(first.items)
+                }
+                print("- - -")
             }
         }
     }

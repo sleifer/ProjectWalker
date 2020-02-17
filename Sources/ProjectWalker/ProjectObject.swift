@@ -17,12 +17,12 @@ public class ProjectObject: Hashable {
 
     public init() {
         self.items = [:]
-        self.referenceKey = UUID().uuidString
+        self.referenceKey = "tmpRef:\(UUID().uuidString)"
     }
 
     public init(items: ProjectFileDictionary) {
         self.items = items
-        self.referenceKey = UUID().uuidString
+        self.referenceKey = "tmpRef:\(UUID().uuidString)"
     }
 
     // swiftlint:disable cyclomatic_complexity
@@ -38,6 +38,10 @@ public class ProjectObject: Hashable {
                 return PBXBuildFile(items: items)
             case "PBXProject":
                 return PBXProject(items: items)
+            case "PBXVariantGroup":
+                return PBXVariantGroup(items: items)
+            case "PBXResourcesBuildPhase":
+                return PBXResourcesBuildPhase(items: items)
             case "PBXTargetDependency":
                 return PBXTargetDependency(items: items)
             case "XCBuildConfiguration":
