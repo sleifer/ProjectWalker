@@ -23,6 +23,15 @@ public class PBXContainerItemProxy: ProjectObject {
         super.init(items: items)
     }
 
+    override func removeRead(keys: inout Set<String>) {
+        keys.remove("containerPortal")
+        keys.remove("proxyType")
+        keys.remove("remoteGlobaIDString")
+        keys.remove("remoteInfo")
+
+        super.removeRead(keys: &keys)
+    }
+
     public func getContainerPortal() -> PBXProject? {
         if let objects = project?.objects, let key = containerPortal {
             return objects[key] as? PBXProject

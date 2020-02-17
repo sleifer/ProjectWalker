@@ -19,6 +19,13 @@ public class PBXTargetDependency: ProjectObject {
         super.init(items: items)
     }
 
+    override func removeRead(keys: inout Set<String>) {
+        keys.remove("target")
+        keys.remove("targetProxy")
+
+        super.removeRead(keys: &keys)
+    }
+
     public func getTarget() -> PBXNativeTarget? {
         if let objects = project?.objects, let key = target {
             return objects[key] as? PBXNativeTarget

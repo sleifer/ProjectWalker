@@ -19,7 +19,14 @@ public class XCConfigurationList: ProjectObject {
         self.defaultConfigurationName = items.string(forKey: "defaultConfigurationName")
 
         super.init(items: items)
+    }
 
+    override func removeRead(keys: inout Set<String>) {
+        keys.remove("buildConfigurations")
+        keys.remove("defaultConfigurationIsVisible")
+        keys.remove("defaultConfigurationName")
+
+        super.removeRead(keys: &keys)
     }
 
     public func getBuildConfigurations() -> [XCBuildConfiguration]? {

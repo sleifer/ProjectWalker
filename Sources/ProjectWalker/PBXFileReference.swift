@@ -26,4 +26,15 @@ public class PBXFileReference: PBXFileElement {
 
         super.init(items: items)
     }
+
+    override func removeRead(keys: inout Set<String>) {
+        keys.remove("fileEncoding")
+        keys.remove("explicitFileType")
+        keys.remove("lastKnownFileType")
+        keys.remove("name")
+        keys.remove("path")
+        keys.remove("sourceTree")
+
+        super.removeRead(keys: &keys)
+    }
 }

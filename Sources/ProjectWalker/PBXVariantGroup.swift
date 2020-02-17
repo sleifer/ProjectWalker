@@ -20,6 +20,14 @@ public class PBXVariantGroup: ProjectObject {
         super.init(items: items)
     }
 
+    override func removeRead(keys: inout Set<String>) {
+        keys.remove("name")
+        keys.remove("children")
+        keys.remove("sourceTree")
+
+        super.removeRead(keys: &keys)
+    }
+
     public func getFiles() -> [PBXBuildFile]? {
         if let objects = project?.objects, let files = children {
             return files.compactMap({ (key) -> PBXBuildFile? in

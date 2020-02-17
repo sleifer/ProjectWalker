@@ -14,9 +14,16 @@ public class PBXBuildFile: ProjectObject {
 
     public required init(items: ProjectFileDictionary) {
         self.fileRef = items.string(forKey: "fileRef")
-        self.settings = items["settings"] as? ProjectFileDictionary
+        self.settings = items.dictionary(forKey: "settings")
 
         super.init(items: items)
+    }
+
+    override func removeRead(keys: inout Set<String>) {
+        keys.remove("fileRef")
+        keys.remove("settings")
+
+        super.removeRead(keys: &keys)
     }
 
     public func getFileRef() -> PBXFileReference? {

@@ -29,6 +29,18 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase {
         super.init(items: items)
     }
 
+    override func removeRead(keys: inout Set<String>) {
+        keys.remove("buildActionMask")
+        keys.remove("files")
+        keys.remove("inputPaths")
+        keys.remove("outputPaths")
+        keys.remove("runOnlyForDeploymentPostprocessing")
+        keys.remove("shellPath")
+        keys.remove("shellScript")
+
+        super.removeRead(keys: &keys)
+    }
+
     public func getFiles() -> [PBXBuildFile]? {
         if let objects = project?.objects, let files = files {
             return files.compactMap({ (key) -> PBXBuildFile? in

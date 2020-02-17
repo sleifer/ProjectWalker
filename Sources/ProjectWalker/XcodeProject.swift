@@ -49,8 +49,21 @@ public class XcodeProject {
                     if let objects = plist.dictionary(forKey: "objects") {
                         for objectKey in objects.keys.sorted() {
                             if let entry = objects.dictionary(forKey: objectKey) {
-                                if let obj = ProjectObject.decode(from: entry) {
-                                    self.add(object: obj, for: objectKey)
+                                let decoded = ProjectObject.decode(from: entry)
+                                switch decoded {
+                                case .success(let object):
+                                    self.add(object: object, for: objectKey)
+                                case .failure(let error):
+                                    switch error {
+                                    case .missingIsa(let isa):
+                                        print("missing isa: \(isa)")
+                                    case .unknownIsa(let isa, let dict):
+                                        print("unknown isa: \(isa)")
+                                        print(dict)
+                                    case .unusedKeys(let object, let dict):
+                                        print("unused keys: \(object.unused)")
+                                        print(dict)
+                                    }
                                 }
                             }
                         }

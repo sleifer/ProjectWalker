@@ -37,6 +37,22 @@ public class PBXProject: ProjectObject {
         super.init(items: items)
     }
 
+    override func removeRead(keys: inout Set<String>) {
+        keys.remove("buildConfigurationList")
+        keys.remove("compatibilityVersion")
+        keys.remove("developmentRegion")
+        keys.remove("hasScannedForEncodings")
+        keys.remove("knownRegions")
+        keys.remove("mainGroup")
+        keys.remove("productRefGroup")
+        keys.remove("projectDirPath")
+        keys.remove("projectReferences")
+        keys.remove("projectRoot")
+        keys.remove("targets")
+
+        super.removeRead(keys: &keys)
+    }
+
     public func getBuildConfigurationList() -> XCConfigurationList? {
         if let objects = project?.objects, let key = buildConfigurationList {
             return objects[key] as? XCConfigurationList

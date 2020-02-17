@@ -17,4 +17,11 @@ public class XCRemoteSwiftPackageReference: ProjectObject {
 
         super.init(items: items)
     }
+
+    override func removeRead(keys: inout Set<String>) {
+        keys.remove("repositoryURL")
+        keys.remove("requirements")
+
+        super.removeRead(keys: &keys)
+    }
 }

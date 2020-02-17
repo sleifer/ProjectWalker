@@ -20,6 +20,14 @@ public class PBXResourcesBuildPhase: ProjectObject {
         super.init(items: items)
     }
 
+    override func removeRead(keys: inout Set<String>) {
+        keys.remove("buildActionMask")
+        keys.remove("files")
+        keys.remove("runOnlyForDeploymentPostprocessing")
+
+        super.removeRead(keys: &keys)
+    }
+
     public func getFiles() -> [PBXBuildFile]? {
         if let objects = project?.objects, let files = files {
             return files.compactMap({ (key) -> PBXBuildFile? in

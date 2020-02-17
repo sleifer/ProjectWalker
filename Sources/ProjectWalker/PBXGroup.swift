@@ -21,6 +21,14 @@ public class PBXGroup: PBXFileElement {
         super.init(items: items)
     }
 
+    override func removeRead(keys: inout Set<String>) {
+        keys.remove("name")
+        keys.remove("sourceTree")
+        keys.remove("children")
+
+        super.removeRead(keys: &keys)
+    }
+
     public func getChildren() -> [PBXFileElement]? {
         if let objects = project?.objects, let children = children {
             return children.compactMap({ (key) -> PBXFileElement? in

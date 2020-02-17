@@ -15,17 +15,42 @@ public class ProjectObject: Hashable {
     public var items: ProjectFileDictionary
     public var project: XcodeProject?
     public var referenceKey: String
+    public var unused: [String]
+
+    public var hasUnused: Bool {
+        return unused.count > 0 ? true : false
+    }
 
     public init() {
         self.isa = "<unknown>"
         self.items = [:]
         self.referenceKey = "tmpRef:\(UUID().uuidString)"
+        self.unused = []
     }
 
     public required init(items: ProjectFileDictionary) {
         self.isa = items.string(forKey: "isa")
         self.items = items
         self.referenceKey = "tmpRef:\(UUID().uuidString)"
+        self.unused = []
+
+        self.unused = unusedKeyCheck(items: items)
+    }
+
+    func unusedKeyCheck(items: ProjectFileDictionary) -> [String] {
+        var keys = Set(items.keys)
+        removeRead(keys: &keys)
+        return Array(keys)
+    }
+
+    func removeRead(keys: inout Set<String>) {
+        keys.remove("isa")
+    }
+
+    public enum ProjectObjectDecodeError: Error {
+        case missingIsa(ProjectFileDictionary)
+        case unknownIsa(String, ProjectFileDictionary)
+        case unusedKeys(ProjectObject, ProjectFileDictionary)
     }
 
     static var projectObjectTypeMap: [String: ProjectObject.Type] = [:]
@@ -54,17 +79,27 @@ public class ProjectObject: Hashable {
         addProjectObjectType(XCSwiftPackageProductDependency.self, withKey: "XCSwiftPackageProductDependency")
     }
 
-    public static func decode(from items: ProjectFileDictionary) -> ProjectObject? {
+    public static func decode(from items: ProjectFileDictionary, unknownTypeIsError: Bool = false, unusedKeyIsError: Bool = true) -> Result<ProjectObject, ProjectObjectDecodeError> {
         if projectObjectTypeMap.count == 0 {
             registerProjectObjectTypes()
         }
         if let isa = items["isa"] as? String {
             if let isaClass = projectObjectTypeMap[isa] {
-                return isaClass.init(items: items)
+                let object = isaClass.init(items: items)
+                if unusedKeyIsError == true && object.hasUnused == true {
+                    return .failure(.unusedKeys(object, items))
+                } else {
+                    return .success(object)
+                }
             }
-            return ProjectObject(items: items)
+            if unknownTypeIsError == true {
+                return .failure(.unknownIsa(isa, items))
+            } else {
+                let object = ProjectObject(items: items)
+                return .success(object)
+            }
         }
-        return nil
+        return .failure(.missingIsa(items))
     }
 
     public static func == (lhs: ProjectObject, rhs: ProjectObject) -> Bool {

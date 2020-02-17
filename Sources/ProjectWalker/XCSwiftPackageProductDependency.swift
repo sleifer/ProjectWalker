@@ -17,4 +17,11 @@ public class XCSwiftPackageProductDependency: ProjectObject {
 
         super.init(items: items)
     }
+
+    override func removeRead(keys: inout Set<String>) {
+        keys.remove("package")
+        keys.remove("productName")
+
+        super.removeRead(keys: &keys)
+    }
 }
