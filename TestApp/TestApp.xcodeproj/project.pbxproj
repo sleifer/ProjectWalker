@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB2ABB2423FA309C008F21C3 /* ProjectInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2ABB2323FA309C008F21C3 /* ProjectInfoView.swift */; };
 		DB32D0CB23F9E2A30025AE8F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB32D0CA23F9E2A30025AE8F /* AppDelegate.swift */; };
 		DB32D0CD23F9E2A30025AE8F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB32D0CC23F9E2A30025AE8F /* ContentView.swift */; };
 		DB32D0CF23F9E2A50025AE8F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB32D0CE23F9E2A50025AE8F /* Assets.xcassets */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DB2ABB2323FA309C008F21C3 /* ProjectInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectInfoView.swift; sourceTree = "<group>"; };
 		DB32D0C823F9E2A30025AE8F /* ProjectWalkerTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectWalkerTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB32D0CA23F9E2A30025AE8F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB32D0CC23F9E2A30025AE8F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -48,6 +50,7 @@
 				DB32D0CA23F9E2A30025AE8F /* AppDelegate.swift */,
 				DB32D0CE23F9E2A50025AE8F /* Assets.xcassets */,
 				DB32D0CC23F9E2A30025AE8F /* ContentView.swift */,
+				DB2ABB2323FA309C008F21C3 /* ProjectInfoView.swift */,
 				DB32D0D623F9E2A50025AE8F /* Info.plist */,
 				DB32D0D323F9E2A50025AE8F /* Main.storyboard */,
 				DB32D0D023F9E2A50025AE8F /* Preview Content */,
@@ -167,6 +170,7 @@
 			files = (
 				DB32D0CD23F9E2A30025AE8F /* ContentView.swift in Sources */,
 				DB32D0DC23F9E2D00025AE8F /* Tests.swift in Sources */,
+				DB2ABB2423FA309C008F21C3 /* ProjectInfoView.swift in Sources */,
 				DB32D0CB23F9E2A30025AE8F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -11,6 +11,7 @@ import Foundation
 public class XcodeProject {
     public var path: String
     public var archiveVersion: Int
+    public var classes: ProjectFileDictionary
     public var objectVersion: Int
     public var rootObject: String
     private(set) public var objects: [String: ProjectObject]
@@ -18,6 +19,7 @@ public class XcodeProject {
     public init() {
         self.path = ""
         self.archiveVersion = 0
+        self.classes = ProjectFileDictionary()
         self.objectVersion = 0
         self.rootObject = ""
         self.objects = [:]
@@ -52,6 +54,11 @@ public class XcodeProject {
                                 }
                             }
                         }
+                    }
+                }
+                if key == "classes" {
+                    if let value = plist.dictionary(forKey: "classes") {
+                        self.classes = value
                     }
                 }
                 if key == "rootObject" {

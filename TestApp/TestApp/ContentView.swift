@@ -32,6 +32,12 @@ struct ContentView: View {
                 Text("Run infoOnUnhandled")
             }
             .disabled(self.tests.project == nil)
+
+            tests.project.map { (project) in
+                ProjectInfoView(project: project)
+            }
+            .padding(.top)
+
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -40,6 +46,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView().environmentObject(Tests())
     }
 }
