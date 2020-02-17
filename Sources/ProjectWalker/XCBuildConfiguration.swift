@@ -13,6 +13,10 @@ public class XCBuildConfiguration: ProjectObject {
     public var buildSettings: ProjectFileDictionary?
     public var name: String?
 
+    public override var openStepComment: String {
+        return name ?? "<build configuration>"
+    }
+
     public required init(items: ProjectFileDictionary) {
         self.baseConfigurationReference = items.string(forKey: "baseConfigurationReference")
         self.buildSettings = items.dictionary(forKey: "buildSettings")
@@ -27,5 +31,26 @@ public class XCBuildConfiguration: ProjectObject {
         keys.remove("name")
 
         super.removeRead(keys: &keys)
+    }
+
+    override func write(to fileText: IndentableString) throws {
+        fileText.appendLine("\(referenceKey) /* \(self.openStepComment) */ = {")
+        fileText.indent()
+        fileText.appendLine("isa = \(isa);")
+        if let value = baseConfigurationReference {
+            fileText.appendLine("baseConfigurationReference = \(value.openStepQuoted());")
+        }
+        if let value = buildSettings {
+            fileText.appendLine("buildSettings = {")
+            fileText.indent()
+            try value.write(to: fileText)
+            fileText.outdent()
+            fileText.appendLine("};")
+        }
+        if let value = name {
+            fileText.appendLine("name = \(value.openStepQuoted());")
+        }
+        fileText.outdent()
+        fileText.appendLine("};")
     }
 }

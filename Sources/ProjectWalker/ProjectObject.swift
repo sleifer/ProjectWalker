@@ -10,8 +10,14 @@ import Foundation
 
 public typealias Reference = String
 
+public enum ProjectObjectDecodeError: Error {
+    case missingIsa(ProjectFileDictionary)
+    case unknownIsa(String, ProjectFileDictionary)
+    case unusedKeys(ProjectObject, ProjectFileDictionary)
+}
+
 public class ProjectObject: Hashable {
-    public var isa: String?
+    public var isa: String
     public var items: ProjectFileDictionary
     public var project: XcodeProject?
     public var referenceKey: String
@@ -19,6 +25,9 @@ public class ProjectObject: Hashable {
 
     public var hasUnused: Bool {
         return unused.count > 0 ? true : false
+    }
+    public var openStepComment: String {
+        return "object"
     }
 
     public init() {
@@ -29,7 +38,7 @@ public class ProjectObject: Hashable {
     }
 
     public required init(items: ProjectFileDictionary) {
-        self.isa = items.string(forKey: "isa")
+        self.isa = items.string(forKey: "isa") ?? "<unknown>"
         self.items = items
         self.referenceKey = "tmpRef:\(UUID().uuidString)"
         self.unused = []
@@ -37,20 +46,17 @@ public class ProjectObject: Hashable {
         self.unused = unusedKeyCheck(items: items)
     }
 
-    func unusedKeyCheck(items: ProjectFileDictionary) -> [String] {
-        var keys = Set(items.keys)
-        removeRead(keys: &keys)
-        return Array(keys)
-    }
-
     func removeRead(keys: inout Set<String>) {
         keys.remove("isa")
     }
 
-    public enum ProjectObjectDecodeError: Error {
-        case missingIsa(ProjectFileDictionary)
-        case unknownIsa(String, ProjectFileDictionary)
-        case unusedKeys(ProjectObject, ProjectFileDictionary)
+    func write(to fileText: IndentableString) throws {
+    }
+
+    func unusedKeyCheck(items: ProjectFileDictionary) -> [String] {
+        var keys = Set(items.keys)
+        removeRead(keys: &keys)
+        return Array(keys)
     }
 
     static var projectObjectTypeMap: [String: ProjectObject.Type] = [:]

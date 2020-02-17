@@ -9,20 +9,22 @@
 import Foundation
 
 public class PBXShellScriptBuildPhase: PBXBuildPhase {
-    public var buildActionMask: Int?
-    public var files: [Reference]?
     public var inputPaths: [String]?
+    public var inputFileListPaths: [String]?
     public var outputPaths: [String]?
-    public var runOnlyForDeploymentPostprocessing: Bool?
+    public var outputFileListPaths: [String]?
     public var shellPath: String?
     public var shellScript: String?
 
+    public override var openStepComment: String {
+        return "ShellScript"
+    }
+
     public required init(items: ProjectFileDictionary) {
-        self.buildActionMask = items.int(forKey: "buildActionMask")
-        self.files = items.stringArray(forKey: "files")
         self.inputPaths = items.stringArray(forKey: "inputPaths")
+        self.inputFileListPaths = items.stringArray(forKey: "inputFileListPaths")
         self.outputPaths = items.stringArray(forKey: "outputPaths")
-        self.runOnlyForDeploymentPostprocessing = items.bool(forKey: "runOnlyForDeploymentPostprocessing")
+        self.outputFileListPaths = items.stringArray(forKey: "outputFileListPaths")
         self.shellPath = items.string(forKey: "shellPath")
         self.shellScript = items.string(forKey: "shellScript")
 
@@ -30,23 +32,80 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase {
     }
 
     override func removeRead(keys: inout Set<String>) {
-        keys.remove("buildActionMask")
-        keys.remove("files")
         keys.remove("inputPaths")
+        keys.remove("inputFileListPaths")
         keys.remove("outputPaths")
-        keys.remove("runOnlyForDeploymentPostprocessing")
+        keys.remove("outputFileListPaths")
         keys.remove("shellPath")
         keys.remove("shellScript")
 
         super.removeRead(keys: &keys)
     }
 
-    public func getFiles() -> [PBXBuildFile]? {
-        if let objects = project?.objects, let files = files {
-            return files.compactMap({ (key) -> PBXBuildFile? in
-                return objects[key] as? PBXBuildFile
-            })
+    override func write(to fileText: IndentableString) throws {
+        fileText.appendLine("\(referenceKey) /* \(self.openStepComment) */ = {")
+        fileText.indent()
+        fileText.appendLine("isa = \(isa);")
+        if let value = buildActionMask {
+            fileText.appendLine("buildActionMask = \(value);")
         }
-        return nil
+        if let value = files {
+            fileText.appendLine("files = (")
+            fileText.indent()
+            for oneFile in value {
+                if let file = project?.object(withKey: oneFile) {
+                    fileText.appendLine("\(oneFile) /* \(file.openStepComment) */,")
+                }
+            }
+            fileText.outdent()
+            fileText.appendLine(");")
+        }
+        if let value = inputFileListPaths {
+            fileText.appendLine("inputFileListPaths = (")
+            fileText.indent()
+            for item in value {
+                fileText.appendLine("\(item.openStepQuoted()),")
+            }
+            fileText.outdent()
+            fileText.appendLine(");")
+        }
+        if let value = inputPaths {
+            fileText.appendLine("inputPaths = (")
+            fileText.indent()
+            for item in value {
+                fileText.appendLine("\(item.openStepQuoted()),")
+            }
+            fileText.outdent()
+            fileText.appendLine(");")
+        }
+        if let value = outputFileListPaths {
+            fileText.appendLine("outputFileListPaths = (")
+            fileText.indent()
+            for item in value {
+                fileText.appendLine("\(item.openStepQuoted()),")
+            }
+            fileText.outdent()
+            fileText.appendLine(");")
+        }
+        if let value = outputPaths {
+            fileText.appendLine("outputPaths = (")
+            fileText.indent()
+            for item in value {
+                fileText.appendLine("\(item.openStepQuoted()),")
+            }
+            fileText.outdent()
+            fileText.appendLine(");")
+        }
+        if let value = runOnlyForDeploymentPostprocessing {
+            fileText.appendLine("runOnlyForDeploymentPostprocessing = \(value ? 1 : 0);")
+        }
+        if let value = shellPath {
+            fileText.appendLine("shellPath = \(value.openStepQuoted());")
+        }
+        if let value = shellScript {
+            fileText.appendLine("shellScript = \(value.openStepQuoted());")
+        }
+        fileText.outdent()
+        fileText.appendLine("};")
     }
 }

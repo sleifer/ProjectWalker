@@ -13,6 +13,16 @@ public class PBXBuildFile: ProjectObject {
     public var productRef: Reference?
     public var settings: ProjectFileDictionary?
 
+    public override var openStepComment: String {
+        if let value = fileRef, let file = project?.object(withKey: value), let buildPhase = project?.buildPhaseForObject(withKey: referenceKey) {
+            return "\(file.openStepComment) in \(buildPhase.openStepComment)"
+        } else if let value = productRef, let file = project?.object(withKey: value), let buildPhase = project?.buildPhaseForObject(withKey: referenceKey) {
+            return "\(file.openStepComment) in \(buildPhase.openStepComment)"
+        } else {
+            return "<build file>"
+        }
+    }
+
     public required init(items: ProjectFileDictionary) {
         self.fileRef = items.string(forKey: "fileRef")
         self.productRef = items.string(forKey: "productRef")
@@ -29,10 +39,17 @@ public class PBXBuildFile: ProjectObject {
         super.removeRead(keys: &keys)
     }
 
-    public func getFileRef() -> PBXFileReference? {
-        if let objects = project?.objects, let key = fileRef {
-            return objects[key] as? PBXFileReference
+    override func write(to fileText: IndentableString) throws {
+        if let value = fileRef, let file = project?.object(withKey: value), let buildPhase = project?.buildPhaseForObject(withKey: referenceKey) {
+            fileText.appendLine("\(referenceKey) /* \(file.openStepComment) in \(buildPhase.openStepComment) */ = {isa = \(isa); fileRef = \(file.referenceKey) /* \(file.openStepComment) */; };")
+        } else if let value = productRef, let file = project?.object(withKey: value), let buildPhase = project?.buildPhaseForObject(withKey: referenceKey) {
+            fileText.appendLine("\(referenceKey) /* \(file.openStepComment) in \(buildPhase.openStepComment) */ = {isa = \(isa); productRef = \(file.referenceKey) /* \(file.openStepComment) */; };")
+        } else {
+            throw XcodeProjectError.objectWrite(self)
         }
-        return nil
+    }
+
+    public func getFileRef() -> PBXFileReference? {
+        return project?.object(withKey: fileRef) as? PBXFileReference
     }
 }

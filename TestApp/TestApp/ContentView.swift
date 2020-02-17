@@ -21,6 +21,11 @@ struct ContentView: View {
                 Text("Run readTest")
             }
             Button(action: {
+                self.tests.writeTest()
+            }) {
+                Text("Run writeTest")
+            }
+            Button(action: {
                 self.tests.configurationsTest()
             }) {
                 Text("Run configurationsTest")

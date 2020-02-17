@@ -10,6 +10,17 @@ import Foundation
 
 public typealias ProjectFileDictionary = [String: AnyObject]
 
+let isaSorter: (String, String) -> Bool = { lhs, rhs in
+    if lhs == "isa" {
+        return true
+    } else if rhs == "isa" {
+        return false
+    } else if lhs < rhs {
+        return true
+    }
+    return false
+}
+
 public extension ProjectFileDictionary {
     func int(forKey key: String) -> Int? {
         if let value = self[key] as? String {
@@ -47,5 +58,46 @@ public extension ProjectFileDictionary {
             return value
         }
         return nil
+    }
+
+    func openStepString() -> String {
+        var text: String = "{"
+        let sortedKeys = self.keys.sorted(by: isaSorter)
+        for key in sortedKeys {
+            if let value = self[key] as? String {
+                text += "\(key) = \(value.openStepQuoted()); "
+            }
+        }
+        text += "};"
+        return text
+    }
+
+    internal func write(to fileText: IndentableString) throws {
+        let sortedKeys = self.keys.sorted(by: isaSorter)
+        for key in sortedKeys {
+            if let value = self[key] as? String {
+                fileText.appendLine("\(key) = \(value.openStepQuoted());")
+            } else if let value = self[key] as? ProjectFileDictionary {
+                fileText.appendLine("\(key) = {")
+                fileText.indent()
+                try value.write(to: fileText)
+                fileText.outdent()
+                fileText.appendLine("};")
+            } else if let value = self[key] as? ProjectFileArray {
+                fileText.appendLine("\(key) = (")
+                fileText.indent()
+                for item in value {
+                    if let stringValue = item as? String {
+                        fileText.appendLine("\(stringValue.openStepQuoted()),")
+                    } else {
+                        fileText.appendLine("\(item),")
+                    }
+                }
+                fileText.outdent()
+                fileText.appendLine(");")
+            } else if let value = self[key] {
+                fileText.appendLine("\(key) = \(value);")
+            }
+        }
     }
 }

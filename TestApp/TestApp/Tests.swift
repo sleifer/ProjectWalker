@@ -13,7 +13,7 @@ class Tests: ObservableObject {
     @Published var project: XcodeProject?
 
     func readTest() {
-        let path = "/Users/simeon/Desktop/test2/test2.xcodeproj"
+        let path = "/Users/simeon/Desktop/test/test.xcodeproj"
         project = XcodeProject(contentsOf: URL(fileURLWithPath: path))
         if let project = project {
             let filtered = project.unhandledTypes()
@@ -23,6 +23,20 @@ class Tests: ObservableObject {
                 for item in filtered {
                     print(" \(item)")
                 }
+            }
+        }
+    }
+
+    func writeTest() {
+        if project == nil {
+            readTest()
+        }
+        if let project = project {
+            do {
+            let path = "/Users/simeon/Desktop/test.pbxproj"
+            try project.write(to: URL(fileURLWithPath: path))
+            } catch {
+                print(error)
             }
         }
     }

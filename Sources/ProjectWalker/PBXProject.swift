@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class PBXProject: ProjectObject {
+public class PBXProject: ProjectObject, BuildConfigurationListUser {
     public var buildConfigurationList: Reference?
     public var compatibilityVersion: String?
     public var developmentRegion: String?
@@ -22,6 +22,10 @@ public class PBXProject: ProjectObject {
     public var attributes: ProjectFileDictionary?
     public var projectRoot: String?
     public var targets: [Reference]?
+
+    public override var openStepComment: String {
+        return "Project object"
+    }
 
     public required init(items: ProjectFileDictionary) {
         self.buildConfigurationList = items.string(forKey: "buildConfigurationList")
@@ -57,6 +61,95 @@ public class PBXProject: ProjectObject {
         keys.remove("targets")
 
         super.removeRead(keys: &keys)
+    }
+
+    override func write(to fileText: IndentableString) throws {
+        fileText.appendLine("\(referenceKey) /* \(self.openStepComment) */ = {")
+        fileText.indent()
+        fileText.appendLine("isa = \(isa);")
+        if let value = attributes {
+            fileText.appendLine("attributes = {")
+            fileText.indent()
+            try value.write(to: fileText)
+            fileText.outdent()
+            fileText.appendLine("};")
+        }
+        if let value = buildConfigurationList {
+            if let object = project?.object(withKey: value) {
+                fileText.appendLine("buildConfigurationList = \(value.openStepQuoted()) /* \(object.openStepComment) */;")
+            } else {
+                fileText.appendLine("buildConfigurationList = \(value.openStepQuoted());")
+            }
+        }
+        if let value = compatibilityVersion {
+            fileText.appendLine("compatibilityVersion = \(value.openStepQuoted());")
+        }
+        if let value = developmentRegion {
+            fileText.appendLine("developmentRegion = \(value.openStepQuoted());")
+        }
+        if let value = hasScannedForEncodings {
+            fileText.appendLine("hasScannedForEncodings = \(value ? 1 : 0);")
+        }
+        if let value = knownRegions {
+            fileText.appendLine("knownRegions = (")
+            fileText.indent()
+            for item in value {
+                fileText.appendLine("\(item.openStepQuoted()),")
+            }
+            fileText.outdent()
+            fileText.appendLine(");")
+        }
+        if let value = mainGroup {
+            fileText.appendLine("mainGroup = \(value.openStepQuoted());")
+        }
+        if let value = packageReferences {
+            fileText.appendLine("packageReferences = (")
+            fileText.indent()
+            for item in value {
+                if let object = project?.object(withKey: item) {
+                    fileText.appendLine("\(item.openStepQuoted()) /* \(object.openStepComment) */,")
+                } else {
+                    fileText.appendLine("\(item.openStepQuoted()),")
+                }
+            }
+            fileText.outdent()
+            fileText.appendLine(");")
+        }
+        if let value = productRefGroup {
+            if let object = project?.object(withKey: value) {
+                fileText.appendLine("productRefGroup = \(value.openStepQuoted()) /* \(object.openStepComment) */;")
+            } else {
+                fileText.appendLine("productRefGroup = \(value.openStepQuoted());")
+            }
+        }
+        if let value = projectDirPath {
+            fileText.appendLine("projectDirPath = \(value.openStepQuoted());")
+        }
+        if let value = projectReferences {
+            fileText.appendLine("projectReferences = {")
+            fileText.indent()
+            try value.write(to: fileText)
+            fileText.outdent()
+            fileText.appendLine("};")
+        }
+        if let value = projectRoot {
+            fileText.appendLine("projectRoot = \(value.openStepQuoted());")
+        }
+        if let value = targets {
+            fileText.appendLine("targets = (")
+            fileText.indent()
+            for item in value {
+                if let object = project?.object(withKey: item) {
+                    fileText.appendLine("\(item.openStepQuoted()) /* \(object.openStepComment) */,")
+                } else {
+                    fileText.appendLine("\(item.openStepQuoted()),")
+                }
+            }
+            fileText.outdent()
+            fileText.appendLine(");")
+        }
+        fileText.outdent()
+        fileText.appendLine("};")
     }
 
     public func getBuildConfigurationList() -> XCConfigurationList? {

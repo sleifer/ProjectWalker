@@ -17,6 +17,10 @@ public class PBXFileReference: PBXFileElement {
     public var sourceTree: String?
     public var includeInIndex: Bool?
 
+    public override var openStepComment: String {
+        return name ?? path ?? "<unknown>"
+    }
+
     public required init(items: ProjectFileDictionary) {
         self.fileEncoding = items.int(forKey: "fileEncoding")
         self.explicitFileType = items.string(forKey: "explicitFileType")
@@ -39,5 +43,9 @@ public class PBXFileReference: PBXFileElement {
         keys.remove("includeInIndex")
 
         super.removeRead(keys: &keys)
+    }
+
+    override func write(to fileText: IndentableString) throws {
+        fileText.appendLine("\(referenceKey) /* \(openStepComment) */ = \(items.openStepString())")
     }
 }
