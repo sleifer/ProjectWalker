@@ -67,6 +67,10 @@ class Tests: ObservableObject {
                 }
                 print("- - -")
             }
+
+            if types.count == 0 {
+                print("No unhandled types.")
+            }
         }
     }
 }

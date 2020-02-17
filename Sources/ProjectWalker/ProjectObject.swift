@@ -47,6 +47,8 @@ public class ProjectObject: Hashable {
         addProjectObjectType(PBXVariantGroup.self, withKey: "PBXVariantGroup")
         addProjectObjectType(XCBuildConfiguration.self, withKey: "XCBuildConfiguration")
         addProjectObjectType(XCConfigurationList.self, withKey: "XCConfigurationList")
+        addProjectObjectType(XCRemoteSwiftPackageReference.self, withKey: "XCRemoteSwiftPackageReference")
+        addProjectObjectType(XCSwiftPackageProductDependency.self, withKey: "XCSwiftPackageProductDependency")
     }
 
     public static func decode(from items: ProjectFileDictionary) -> ProjectObject? {
