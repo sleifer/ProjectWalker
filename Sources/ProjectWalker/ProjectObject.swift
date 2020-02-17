@@ -11,16 +11,19 @@ import Foundation
 public typealias Reference = String
 
 public class ProjectObject: Hashable {
+    public var isa: String?
     public var items: ProjectFileDictionary
     public var project: XcodeProject?
     public var referenceKey: String
 
     public init() {
+        self.isa = "<unknown>"
         self.items = [:]
         self.referenceKey = "tmpRef:\(UUID().uuidString)"
     }
 
     public required init(items: ProjectFileDictionary) {
+        self.isa = items.string(forKey: "isa")
         self.items = items
         self.referenceKey = "tmpRef:\(UUID().uuidString)"
     }
