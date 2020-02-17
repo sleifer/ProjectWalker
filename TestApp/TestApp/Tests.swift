@@ -14,7 +14,7 @@ class Tests: ObservableObject {
 
     func readTest() {
         let path = "/Users/simeon/Desktop/test2/test2.xcodeproj"
-        project = XcodeProject(contentsOf: path)
+        project = XcodeProject(contentsOf: URL(fileURLWithPath: path))
         if let project = project {
             let filtered = project.unhandledTypes()
 

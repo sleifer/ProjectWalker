@@ -9,29 +9,29 @@
 import Foundation
 
 public class XcodeProject {
-    public var path: String
+    public var path: URL
     public var archiveVersion: Int
     public var classes: ProjectFileDictionary
     public var objectVersion: Int
     public var rootObject: String
     private(set) public var objects: [String: ProjectObject]
+    private var format: PropertyListSerialization.PropertyListFormat
 
     public init() {
-        self.path = ""
+        self.path = URL(fileURLWithPath: "")
         self.archiveVersion = 0
         self.classes = ProjectFileDictionary()
         self.objectVersion = 0
         self.rootObject = ""
         self.objects = [:]
+        self.format = .xml
     }
 
-    public convenience init?(contentsOf path: String) {
+    public convenience init?(contentsOf url: URL) {
         self.init()
         do {
-            self.path = NSString(string: path).appendingPathComponent("project.pbxproj")
-            let url = URL(fileURLWithPath: self.path)
-            let data = try Data(contentsOf: url)
-            var format: PropertyListSerialization.PropertyListFormat = .xml
+            self.path = url.appendingPathComponent("project.pbxproj")
+            let data = try Data(contentsOf: path)
             let plist: ProjectFileDictionary = try PropertyListSerialization.propertyList(from: data, options: [.mutableContainersAndLeaves], format: &format) as? ProjectFileDictionary ?? [:]
 
             for key in plist.keys.sorted() {

@@ -14,7 +14,7 @@ struct ProjectInfoView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text("path: \(project.path)")
+            Text("path: \(project.path.path)")
             Text("archiveVersion: \(project.archiveVersion)")
             Text("classes: \(project.classes.count)")
             Text("objectVersion: \(project.objectVersion)")
