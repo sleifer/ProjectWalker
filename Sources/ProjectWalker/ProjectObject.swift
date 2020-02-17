@@ -67,12 +67,6 @@ public class ProjectObject: Hashable {
         return nil
     }
 
-    public func debugDumpItems() {
-        print(">>> ProjectObject")
-        dump(items)
-        print("<<<")
-    }
-
     public static func == (lhs: ProjectObject, rhs: ProjectObject) -> Bool {
         if lhs.referenceKey == rhs.referenceKey {
             return true

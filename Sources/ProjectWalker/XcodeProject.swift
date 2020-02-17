@@ -99,15 +99,4 @@ public class XcodeProject {
 
         return filtered
     }
-
-    public func dumpUnhandledTypes() {
-        let filtered = unhandledTypes()
-
-        if filtered.count != 0 {
-            print("Unhandled Object Types: \(filtered.count)")
-            for item in filtered {
-                print(" \(item)")
-            }
-        }
-    }
 }

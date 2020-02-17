@@ -16,7 +16,14 @@ class Tests: ObservableObject {
         let path = "/Users/simeon/Desktop/test2/test2.xcodeproj"
         project = XcodeProject(contentsOf: path)
         if let project = project {
-            project.dumpUnhandledTypes()
+            let filtered = project.unhandledTypes()
+
+            if filtered.count != 0 {
+                print("Unhandled Object Types: \(filtered.count)")
+                for item in filtered {
+                    print(" \(item)")
+                }
+            }
         }
     }
 
