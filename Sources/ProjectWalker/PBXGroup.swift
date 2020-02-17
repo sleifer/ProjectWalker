@@ -12,10 +12,12 @@ public class PBXGroup: PBXFileElement {
     public var children: [Reference]?
     public var name: String?
     public var sourceTree: String?
+    public var path: String?
 
     public required init(items: ProjectFileDictionary) {
         self.name = items.string(forKey: "name")
         self.sourceTree = items.string(forKey: "sourceTree")
+        self.sourceTree = items.string(forKey: "path")
         self.children = items.stringArray(forKey: "children")
 
         super.init(items: items)
@@ -24,6 +26,7 @@ public class PBXGroup: PBXFileElement {
     override func removeRead(keys: inout Set<String>) {
         keys.remove("name")
         keys.remove("sourceTree")
+        keys.remove("path")
         keys.remove("children")
 
         super.removeRead(keys: &keys)

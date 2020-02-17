@@ -17,6 +17,8 @@ public class PBXNativeTarget: ProjectObject {
     public var productName: String?
     public var productReference: Reference?
     public var productType: String?
+    public var packageProductDependencies: [Reference]?
+    public var buildRules: ProjectFileArray?
 
     public required init(items: ProjectFileDictionary) {
         self.buildConfigurationList = items.string(forKey: "buildConfigurationList")
@@ -27,8 +29,25 @@ public class PBXNativeTarget: ProjectObject {
         self.productName = items.string(forKey: "productName")
         self.productReference = items.string(forKey: "productReference")
         self.productType = items.string(forKey: "productType")
+        self.packageProductDependencies = items.stringArray(forKey: "packageProductDependencies")
+        self.buildRules = items.array(forKey: "buildRules")
 
         super.init(items: items)
+    }
+
+    override func removeRead(keys: inout Set<String>) {
+        keys.remove("buildConfigurationList")
+        keys.remove("buildPhases")
+        keys.remove("dependencies")
+        keys.remove("name")
+        keys.remove("productInstallPath")
+        keys.remove("productName")
+        keys.remove("productReference")
+        keys.remove("productType")
+        keys.remove("packageProductDependencies")
+        keys.remove("buildRules")
+
+        super.removeRead(keys: &keys)
     }
 
     public func getBuildConfigurationList() -> XCConfigurationList? {

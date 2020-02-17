@@ -15,6 +15,7 @@ public class PBXFileReference: PBXFileElement {
     public var name: String?
     public var path: String?
     public var sourceTree: String?
+    public var includeInIndex: Bool?
 
     public required init(items: ProjectFileDictionary) {
         self.fileEncoding = items.int(forKey: "fileEncoding")
@@ -23,6 +24,7 @@ public class PBXFileReference: PBXFileElement {
         self.name = items.string(forKey: "name")
         self.path = items.string(forKey: "path")
         self.sourceTree = items.string(forKey: "sourceTree")
+        self.includeInIndex = items.bool(forKey: "includeInIndex")
 
         super.init(items: items)
     }
@@ -34,6 +36,7 @@ public class PBXFileReference: PBXFileElement {
         keys.remove("name")
         keys.remove("path")
         keys.remove("sourceTree")
+        keys.remove("includeInIndex")
 
         super.removeRead(keys: &keys)
     }

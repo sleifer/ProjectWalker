@@ -15,7 +15,7 @@ public class PBXFrameworksBuildPhase: PBXBuildPhase {
 
     public required init(items: ProjectFileDictionary) {
         self.buildActionMask = items.int(forKey: "buildActionMask")
-        self.files = items.stringArray(forKey: "file")
+        self.files = items.stringArray(forKey: "files")
         self.runOnlyForDeploymentPostprocessing = items.bool(forKey: "runOnlyForDeploymentPostprocessing")
 
         super.init(items: items)
@@ -23,7 +23,7 @@ public class PBXFrameworksBuildPhase: PBXBuildPhase {
 
     override func removeRead(keys: inout Set<String>) {
         keys.remove("buildActionMask")
-        keys.remove("file")
+        keys.remove("files")
         keys.remove("runOnlyForDeploymentPostprocessing")
 
         super.removeRead(keys: &keys)

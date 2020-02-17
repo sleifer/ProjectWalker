@@ -18,6 +18,8 @@ public class PBXProject: ProjectObject {
     public var productRefGroup: Reference?
     public var projectDirPath: String?
     public var projectReferences: ProjectFileDictionary?
+    public var packageReferences: [Reference]?
+    public var attributes: ProjectFileDictionary?
     public var projectRoot: String?
     public var targets: [Reference]?
 
@@ -31,6 +33,8 @@ public class PBXProject: ProjectObject {
         self.productRefGroup = items.string(forKey: "productRefGroup")
         self.projectDirPath = items.string(forKey: "projectDirPath")
         self.projectReferences = items.dictionary(forKey: "projectReferences")
+        self.packageReferences = items.stringArray(forKey: "packageReferences")
+        self.attributes = items.dictionary(forKey: "attributes")
         self.projectRoot = items.string(forKey: "projectRoot")
         self.targets = items.stringArray(forKey: "targets")
 
@@ -47,6 +51,8 @@ public class PBXProject: ProjectObject {
         keys.remove("productRefGroup")
         keys.remove("projectDirPath")
         keys.remove("projectReferences")
+        keys.remove("packageReferences")
+        keys.remove("attributes")
         keys.remove("projectRoot")
         keys.remove("targets")
 
