@@ -15,7 +15,7 @@ public class PBXCopyFilesBuildPhase: PBXBuildPhase {
     public var files: [Reference]?
     public var runOnlyForDeploymentPostprocessing: Bool?
 
-    public override init(items: ProjectFileDictionary) {
+    public required init(items: ProjectFileDictionary) {
         self.buildActionMask = items.int(forKey: "buildActionMask")
         self.dstPath = items.string(forKey: "dstPath")
         self.dstSubfolderSpec = items.int(forKey: "dstSubfolderSpec")

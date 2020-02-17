@@ -13,7 +13,7 @@ public class XCConfigurationList: ProjectObject {
     public var defaultConfigurationIsVisible: Bool?
     public var defaultConfigurationName: String?
 
-    public override init(items: ProjectFileDictionary) {
+    public required init(items: ProjectFileDictionary) {
         self.buildConfigurations = items.stringArray(forKey: "buildConfigurations")
         self.defaultConfigurationIsVisible = items.bool(forKey: "defaultConfigurationIsVisible")
         self.defaultConfigurationName = items.string(forKey: "defaultConfigurationName")

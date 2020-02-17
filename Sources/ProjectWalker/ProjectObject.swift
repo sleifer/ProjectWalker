@@ -20,54 +20,47 @@ public class ProjectObject: Hashable {
         self.referenceKey = "tmpRef:\(UUID().uuidString)"
     }
 
-    public init(items: ProjectFileDictionary) {
+    public required init(items: ProjectFileDictionary) {
         self.items = items
         self.referenceKey = "tmpRef:\(UUID().uuidString)"
     }
 
-    // swiftlint:disable cyclomatic_complexity
+    static var projectObjectTypeMap: [String: ProjectObject.Type] = [:]
+
+    static func addProjectObjectType<T: ProjectObject>(_ typeClass: T.Type, withKey isaKey: String) {
+        projectObjectTypeMap[isaKey] = typeClass
+    }
+
+    static func registerProjectObjectTypes() {
+        addProjectObjectType(PBXBuildFile.self, withKey: "PBXBuildFile")
+        addProjectObjectType(PBXContainerItemProxy.self, withKey: "PBXContainerItemProxy")
+        addProjectObjectType(PBXCopyFilesBuildPhase.self, withKey: "PBXCopyFilesBuildPhase")
+        addProjectObjectType(PBXFileReference.self, withKey: "PBXFileReference")
+        addProjectObjectType(PBXFrameworksBuildPhase.self, withKey: "PBXFrameworksBuildPhase")
+        addProjectObjectType(PBXGroup.self, withKey: "PBXGroup")
+        addProjectObjectType(PBXNativeTarget.self, withKey: "PBXNativeTarget")
+        addProjectObjectType(PBXProject.self, withKey: "PBXProject")
+        addProjectObjectType(PBXResourcesBuildPhase.self, withKey: "PBXResourcesBuildPhase")
+        addProjectObjectType(PBXShellScriptBuildPhase.self, withKey: "PBXShellScriptBuildPhase")
+        addProjectObjectType(PBXSourcesBuildPhase.self, withKey: "PBXSourcesBuildPhase")
+        addProjectObjectType(PBXTargetDependency.self, withKey: "PBXTargetDependency")
+        addProjectObjectType(PBXVariantGroup.self, withKey: "PBXVariantGroup")
+        addProjectObjectType(XCBuildConfiguration.self, withKey: "XCBuildConfiguration")
+        addProjectObjectType(XCConfigurationList.self, withKey: "XCConfigurationList")
+    }
 
     public static func decode(from items: ProjectFileDictionary) -> ProjectObject? {
+        if projectObjectTypeMap.count == 0 {
+            registerProjectObjectTypes()
+        }
         if let isa = items["isa"] as? String {
-            switch isa {
-            case "PBXFileReference":
-                return PBXFileReference(items: items)
-            case "PBXGroup":
-                return PBXGroup(items: items)
-            case "PBXBuildFile":
-                return PBXBuildFile(items: items)
-            case "PBXProject":
-                return PBXProject(items: items)
-            case "PBXVariantGroup":
-                return PBXVariantGroup(items: items)
-            case "PBXResourcesBuildPhase":
-                return PBXResourcesBuildPhase(items: items)
-            case "PBXTargetDependency":
-                return PBXTargetDependency(items: items)
-            case "XCBuildConfiguration":
-                return XCBuildConfiguration(items: items)
-            case "XCConfigurationList":
-                return XCConfigurationList(items: items)
-            case "PBXFrameworksBuildPhase":
-                return PBXFrameworksBuildPhase(items: items)
-            case "PBXShellScriptBuildPhase":
-                return PBXShellScriptBuildPhase(items: items)
-            case "PBXCopyFilesBuildPhase":
-                return PBXCopyFilesBuildPhase(items: items)
-            case "PBXSourcesBuildPhase":
-                return PBXSourcesBuildPhase(items: items)
-            case "PBXNativeTarget":
-                return PBXNativeTarget(items: items)
-            case "PBXContainerItemProxy":
-                return PBXContainerItemProxy(items: items)
-            default:
-                return ProjectObject(items: items)
+            if let isaClass = projectObjectTypeMap[isa] {
+                return isaClass.init(items: items)
             }
+            return ProjectObject(items: items)
         }
         return nil
     }
-
-    // swiftlint:enable cyclomatic_complexity
 
     public func debugDumpItems() {
         print(">>> ProjectObject")

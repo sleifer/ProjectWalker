@@ -16,7 +16,7 @@ public class PBXFileReference: PBXFileElement {
     public var path: String?
     public var sourceTree: String?
 
-    public override init(items: ProjectFileDictionary) {
+    public required init(items: ProjectFileDictionary) {
         self.fileEncoding = items.int(forKey: "fileEncoding")
         self.explicitFileType = items.string(forKey: "explicitFileType")
         self.lastKnownFileType = items.string(forKey: "lastKnownFileType")

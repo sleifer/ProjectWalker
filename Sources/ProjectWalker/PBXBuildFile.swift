@@ -12,7 +12,7 @@ public class PBXBuildFile: ProjectObject {
     public var fileRef: Reference?
     public var settings: ProjectFileDictionary?
 
-    public override init(items: ProjectFileDictionary) {
+    public required init(items: ProjectFileDictionary) {
         self.fileRef = items.string(forKey: "fileRef")
         self.settings = items["settings"] as? ProjectFileDictionary
 

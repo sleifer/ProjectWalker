@@ -17,7 +17,7 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase {
     public var shellPath: String?
     public var shellScript: String?
 
-    public override init(items: ProjectFileDictionary) {
+    public required init(items: ProjectFileDictionary) {
         self.buildActionMask = items.int(forKey: "buildActionMask")
         self.files = items.stringArray(forKey: "files")
         self.inputPaths = items.stringArray(forKey: "inputPaths")

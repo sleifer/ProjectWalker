@@ -12,7 +12,7 @@ public class PBXVariantGroup: ProjectObject {
     public var children: [Reference]?
     public var sourceTree: String?
 
-    public override init(items: ProjectFileDictionary) {
+    public required init(items: ProjectFileDictionary) {
         self.name = items.string(forKey: "name")
         self.children = items.stringArray(forKey: "children")
         self.sourceTree = items.string(forKey: "sourceTree")

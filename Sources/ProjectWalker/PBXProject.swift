@@ -21,7 +21,7 @@ public class PBXProject: ProjectObject {
     public var projectRoot: String?
     public var targets: [Reference]?
 
-    public override init(items: ProjectFileDictionary) {
+    public required init(items: ProjectFileDictionary) {
         self.buildConfigurationList = items.string(forKey: "buildConfigurationList")
         self.compatibilityVersion = items.string(forKey: "compatibilityVersion")
         self.developmentRegion = items.string(forKey: "developmentRegion")

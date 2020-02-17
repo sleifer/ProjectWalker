@@ -18,7 +18,7 @@ public class PBXNativeTarget: ProjectObject {
     public var productReference: Reference?
     public var productType: String?
 
-    public override init(items: ProjectFileDictionary) {
+    public required init(items: ProjectFileDictionary) {
         self.buildConfigurationList = items.string(forKey: "buildConfigurationList")
         self.buildPhases = items.stringArray(forKey: "buildPhases")
         self.dependencies = items.stringArray(forKey: "dependencies")

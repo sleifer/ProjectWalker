@@ -14,7 +14,7 @@ public class PBXContainerItemProxy: ProjectObject {
     public var remoteGlobalIDString: Reference?
     public var remoteInfo: String?
 
-    public override init(items: ProjectFileDictionary) {
+    public required init(items: ProjectFileDictionary) {
         self.containerPortal = items.string(forKey: "containerPortal")
         self.proxyType = items.int(forKey: "proxyType")
         self.remoteGlobalIDString = items.string(forKey: "remoteGlobalIDString")

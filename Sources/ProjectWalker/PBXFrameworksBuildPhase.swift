@@ -13,7 +13,7 @@ public class PBXFrameworksBuildPhase: PBXBuildPhase {
     public var files: [Reference]?
     public var runOnlyForDeploymentPostprocessing: Bool?
 
-    public override init(items: ProjectFileDictionary) {
+    public required init(items: ProjectFileDictionary) {
         self.buildActionMask = items.int(forKey: "buildActionMask")
         self.files = items.stringArray(forKey: "file")
         self.runOnlyForDeploymentPostprocessing = items.bool(forKey: "runOnlyForDeploymentPostprocessing")

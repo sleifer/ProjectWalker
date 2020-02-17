@@ -13,7 +13,7 @@ public class PBXGroup: PBXFileElement {
     public var name: String?
     public var sourceTree: String?
 
-    public override init(items: ProjectFileDictionary) {
+    public required init(items: ProjectFileDictionary) {
         self.name = items.string(forKey: "name")
         self.sourceTree = items.string(forKey: "sourceTree")
         self.children = items.stringArray(forKey: "children")

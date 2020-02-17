@@ -13,7 +13,7 @@ public class XCBuildConfiguration: ProjectObject {
     public var buildSettings: ProjectFileDictionary?
     public var name: String?
 
-    public override init(items: ProjectFileDictionary) {
+    public required init(items: ProjectFileDictionary) {
         self.baseConfigurationReference = items.string(forKey: "baseConfigurationReference")
         self.buildSettings = items["buildSettings"] as? ProjectFileDictionary
         self.name = items.string(forKey: "name")
