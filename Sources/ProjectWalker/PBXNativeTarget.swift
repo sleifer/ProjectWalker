@@ -26,6 +26,7 @@ public class PBXNativeTarget: ProjectObject, BuildConfigurationListUser {
 
     public override init() {
         super.init()
+        self.isa = "PBXNativeTarget"
     }
 
     public required init(items: ProjectFileDictionary) {

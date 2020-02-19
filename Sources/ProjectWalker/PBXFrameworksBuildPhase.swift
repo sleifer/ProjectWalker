@@ -15,6 +15,7 @@ public class PBXFrameworksBuildPhase: PBXBuildPhase {
 
     public override init() {
         super.init()
+        self.isa = "PBXFrameworksBuildPhase"
     }
 
     public required init(items: ProjectFileDictionary) {

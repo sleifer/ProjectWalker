@@ -19,6 +19,7 @@ public class XCBuildConfiguration: ProjectObject {
 
     public override init() {
         super.init()
+        self.isa = "XCBuildConfiguration"
     }
 
     public required init(items: ProjectFileDictionary) {

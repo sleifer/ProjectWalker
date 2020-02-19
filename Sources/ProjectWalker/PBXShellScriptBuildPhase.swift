@@ -15,6 +15,7 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase {
     public var outputFileListPaths: [String]?
     public var shellPath: String?
     public var shellScript: String?
+    public var name: String?
 
     public override var openStepComment: String {
         return "ShellScript"
@@ -22,6 +23,7 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase {
 
     public override init() {
         super.init()
+        self.isa = "PBXShellScriptBuildPhase"
     }
 
     public required init(items: ProjectFileDictionary) {
@@ -31,6 +33,7 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase {
         self.outputFileListPaths = items.stringArray(forKey: "outputFileListPaths")
         self.shellPath = items.string(forKey: "shellPath")
         self.shellScript = items.string(forKey: "shellScript")
+        self.name = items.string(forKey: "name")
 
         super.init(items: items)
     }
@@ -42,6 +45,7 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase {
         keys.remove("outputFileListPaths")
         keys.remove("shellPath")
         keys.remove("shellScript")
+        keys.remove("name")
 
         super.removeRead(keys: &keys)
     }
@@ -108,6 +112,9 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase {
         }
         if let value = shellScript {
             fileText.appendLine("shellScript = \(value.openStepQuoted());")
+        }
+        if let value = name {
+            fileText.appendLine("name = \(value.openStepQuoted());")
         }
         fileText.outdent()
         fileText.appendLine("};")

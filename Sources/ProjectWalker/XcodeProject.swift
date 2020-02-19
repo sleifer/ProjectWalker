@@ -255,7 +255,7 @@ public class XcodeProject {
 
     public func allTypes() -> [String] {
         let types = objects.values.map { (obj: ProjectObject) -> String in
-            obj.items.string(forKey: "isa") ?? "<unknown>"
+            obj.isa
         }
 
         let sorted = Array(Set(types)).sorted()
@@ -288,7 +288,7 @@ public class XcodeProject {
         }
 
         let types = generics.map { (obj: ProjectObject) -> String in
-            obj.items.string(forKey: "isa") ?? "<unknown>"
+            obj.isa
         }
 
         let filtered = Array(Set(types)).sorted()

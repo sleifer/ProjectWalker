@@ -17,6 +17,7 @@ public class XCSwiftPackageProductDependency: ProjectObject {
 
     public override init() {
         super.init()
+        self.isa = "XCSwiftPackageProductDependency"
     }
 
     public required init(items: ProjectFileDictionary) {

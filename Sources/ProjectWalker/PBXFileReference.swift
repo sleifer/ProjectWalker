@@ -23,6 +23,7 @@ public class PBXFileReference: PBXFileElement {
 
     public override init() {
         super.init()
+        self.isa = "PBXFileReference"
     }
 
     public required init(items: ProjectFileDictionary) {

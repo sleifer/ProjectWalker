@@ -20,6 +20,7 @@ public class PBXGroup: PBXFileElement {
 
     public override init() {
         super.init()
+        self.isa = "PBXGroup"
     }
 
     public required init(items: ProjectFileDictionary) {

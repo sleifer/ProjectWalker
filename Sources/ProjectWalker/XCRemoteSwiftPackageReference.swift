@@ -21,6 +21,7 @@ public class XCRemoteSwiftPackageReference: ProjectObject {
 
     public override init() {
         super.init()
+        self.isa = "XCRemoteSwiftPackageReference"
     }
 
     public required init(items: ProjectFileDictionary) {

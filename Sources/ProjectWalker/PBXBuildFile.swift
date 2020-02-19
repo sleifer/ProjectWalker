@@ -25,6 +25,7 @@ public class PBXBuildFile: ProjectObject {
 
     public override init() {
         super.init()
+        self.isa = "PBXBuildFile"
     }
 
     public required init(items: ProjectFileDictionary) {

@@ -30,6 +30,7 @@ public class XCConfigurationList: ProjectObject {
 
     public override init() {
         super.init()
+        self.isa = "XCConfigurationList"
     }
 
     public required init(items: ProjectFileDictionary) {

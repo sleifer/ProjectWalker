@@ -14,6 +14,7 @@ public class PBXTargetDependency: ProjectObject {
 
     public override init() {
         super.init()
+        self.isa = "PBXTargetDependency"
     }
 
     public required init(items: ProjectFileDictionary) {

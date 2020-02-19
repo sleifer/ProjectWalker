@@ -74,7 +74,7 @@ class Tests: ObservableObject {
 
             for oneType in types {
                 let objects = project.objects.values.filter { (obj) -> Bool in
-                    if obj.items.string(forKey: "isa") == oneType {
+                    if obj.isa == oneType {
                         return true
                     }
                     return false

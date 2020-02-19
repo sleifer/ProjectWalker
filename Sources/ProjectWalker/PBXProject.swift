@@ -29,6 +29,7 @@ public class PBXProject: ProjectObject, BuildConfigurationListUser {
 
     public override init() {
         super.init()
+        self.isa = "PBXProject"
     }
 
     public required init(items: ProjectFileDictionary) {

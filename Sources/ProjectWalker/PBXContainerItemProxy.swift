@@ -16,6 +16,7 @@ public class PBXContainerItemProxy: ProjectObject {
 
     public override init() {
         super.init()
+        self.isa = "PBXContainerItemProxy"
     }
 
     public required init(items: ProjectFileDictionary) {

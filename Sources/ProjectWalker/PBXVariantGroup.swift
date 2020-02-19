@@ -18,6 +18,7 @@ public class PBXVariantGroup: ProjectObject {
 
     public override init() {
         super.init()
+        self.isa = "PBXVariantGroup"
     }
 
     public required init(items: ProjectFileDictionary) {

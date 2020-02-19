@@ -33,14 +33,14 @@ public class ProjectObject: Hashable {
     public init() {
         self.isa = "<unknown>"
         self.items = [:]
-        self.referenceKey = "tmpRef:\(UUID().uuidString)"
+        self.referenceKey = "\(UUID().uuidString.replacingOccurrences(of: "-", with: ""))"
         self.unused = []
     }
 
     public required init(items: ProjectFileDictionary) {
         self.isa = items.string(forKey: "isa") ?? "<unknown>"
         self.items = items
-        self.referenceKey = "tmpRef:\(UUID().uuidString)"
+        self.referenceKey = "\(UUID().uuidString.replacingOccurrences(of: "-", with: ""))"
         self.unused = []
 
         self.unused = unusedKeyCheck(items: items)
