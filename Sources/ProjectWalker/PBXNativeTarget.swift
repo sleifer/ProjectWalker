@@ -24,6 +24,10 @@ public class PBXNativeTarget: ProjectObject, BuildConfigurationListUser {
         return name ?? "PBXNativeTarget"
     }
 
+    public override init() {
+        super.init()
+    }
+
     public required init(items: ProjectFileDictionary) {
         self.buildConfigurationList = items.string(forKey: "buildConfigurationList")
         self.buildPhases = items.stringArray(forKey: "buildPhases")

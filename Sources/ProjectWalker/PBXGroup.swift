@@ -18,6 +18,10 @@ public class PBXGroup: PBXFileElement {
         return name ?? path ?? "<group>"
     }
 
+    public override init() {
+        super.init()
+    }
+
     public required init(items: ProjectFileDictionary) {
         self.name = items.string(forKey: "name")
         self.sourceTree = items.string(forKey: "sourceTree")

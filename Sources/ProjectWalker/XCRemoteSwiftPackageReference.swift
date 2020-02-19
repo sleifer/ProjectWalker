@@ -19,6 +19,10 @@ public class XCRemoteSwiftPackageReference: ProjectObject {
         }
     }
 
+    public override init() {
+        super.init()
+    }
+
     public required init(items: ProjectFileDictionary) {
         self.repositoryURL = items.string(forKey: "repositoryURL")
         self.requirement = items.dictionary(forKey: "requirement")

@@ -16,6 +16,10 @@ public class PBXCopyFilesBuildPhase: PBXBuildPhase {
         return "Copy Files"
     }
 
+    public override init() {
+        super.init()
+    }
+
     public required init(items: ProjectFileDictionary) {
         self.dstPath = items.string(forKey: "dstPath")
         self.dstSubfolderSpec = items.int(forKey: "dstSubfolderSpec")

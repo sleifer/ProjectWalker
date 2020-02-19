@@ -27,6 +27,10 @@ public class PBXProject: ProjectObject, BuildConfigurationListUser {
         return "Project object"
     }
 
+    public override init() {
+        super.init()
+    }
+
     public required init(items: ProjectFileDictionary) {
         self.buildConfigurationList = items.string(forKey: "buildConfigurationList")
         self.compatibilityVersion = items.string(forKey: "compatibilityVersion")

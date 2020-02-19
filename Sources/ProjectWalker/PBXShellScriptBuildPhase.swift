@@ -20,6 +20,10 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase {
         return "ShellScript"
     }
 
+    public override init() {
+        super.init()
+    }
+
     public required init(items: ProjectFileDictionary) {
         self.inputPaths = items.stringArray(forKey: "inputPaths")
         self.inputFileListPaths = items.stringArray(forKey: "inputFileListPaths")

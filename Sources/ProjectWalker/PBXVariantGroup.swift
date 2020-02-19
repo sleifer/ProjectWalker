@@ -16,6 +16,10 @@ public class PBXVariantGroup: ProjectObject {
         return name ?? "<unknown>"
     }
 
+    public override init() {
+        super.init()
+    }
+
     public required init(items: ProjectFileDictionary) {
         self.name = items.string(forKey: "name")
         self.children = items.stringArray(forKey: "children")

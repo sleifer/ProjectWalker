@@ -21,6 +21,10 @@ public class PBXFileReference: PBXFileElement {
         return name ?? path ?? "<unknown>"
     }
 
+    public override init() {
+        super.init()
+    }
+
     public required init(items: ProjectFileDictionary) {
         self.fileEncoding = items.int(forKey: "fileEncoding")
         self.explicitFileType = items.string(forKey: "explicitFileType")

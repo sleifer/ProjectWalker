@@ -12,6 +12,10 @@ public class PBXTargetDependency: ProjectObject {
     public var target: Reference?
     public var targetProxy: Reference?
 
+    public override init() {
+        super.init()
+    }
+
     public required init(items: ProjectFileDictionary) {
         self.target = items.string(forKey: "target")
         self.targetProxy = items.string(forKey: "targetProxy")

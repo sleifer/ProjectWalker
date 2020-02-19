@@ -23,6 +23,10 @@ public class PBXBuildFile: ProjectObject {
         }
     }
 
+    public override init() {
+        super.init()
+    }
+
     public required init(items: ProjectFileDictionary) {
         self.fileRef = items.string(forKey: "fileRef")
         self.productRef = items.string(forKey: "productRef")

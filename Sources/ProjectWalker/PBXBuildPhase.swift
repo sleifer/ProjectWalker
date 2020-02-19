@@ -17,6 +17,10 @@ public class PBXBuildPhase: ProjectObject {
         return "<build phase>"
     }
 
+    public override init() {
+        super.init()
+    }
+
     public required init(items: ProjectFileDictionary) {
         self.buildActionMask = items.int(forKey: "buildActionMask")
         self.files = items.stringArray(forKey: "files")

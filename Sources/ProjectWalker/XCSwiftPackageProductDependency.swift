@@ -15,6 +15,10 @@ public class XCSwiftPackageProductDependency: ProjectObject {
         return productName ?? "XCSwiftPackageProductDependency"
     }
 
+    public override init() {
+        super.init()
+    }
+
     public required init(items: ProjectFileDictionary) {
         self.package = items.string(forKey: "package")
         self.productName = items.string(forKey: "productName")

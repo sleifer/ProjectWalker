@@ -28,6 +28,10 @@ public class XCConfigurationList: ProjectObject {
         return "XCConfigurationList"
     }
 
+    public override init() {
+        super.init()
+    }
+
     public required init(items: ProjectFileDictionary) {
         self.buildConfigurations = items.stringArray(forKey: "buildConfigurations")
         self.defaultConfigurationIsVisible = items.bool(forKey: "defaultConfigurationIsVisible")

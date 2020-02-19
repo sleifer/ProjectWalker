@@ -12,4 +12,12 @@ public class PBXSourcesBuildPhase: PBXBuildPhase {
     public override var openStepComment: String {
         return "Sources"
     }
+
+    public override init() {
+        super.init()
+    }
+
+    public required init(items: ProjectFileDictionary) {
+        super.init(items: items)
+    }
 }
