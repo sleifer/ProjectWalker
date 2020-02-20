@@ -144,6 +144,11 @@ public class XcodeProject {
         objects[key] = object
         object.project = self
         object.referenceKey = key
+
+        groupReverseLookup = nil
+        buildPhaseReverseLookup = nil
+        buildConfigurationListUserReverseLookup = nil
+        dependencyForPackageReverseLookup = nil
     }
 
     public func project() -> PBXProject? {
