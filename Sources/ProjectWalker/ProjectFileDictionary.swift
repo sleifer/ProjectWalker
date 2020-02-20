@@ -60,18 +60,6 @@ public extension ProjectFileDictionary {
         return nil
     }
 
-    func openStepString() -> String {
-        var text: String = "{"
-        let sortedKeys = self.keys.sorted(by: isaSorter)
-        for key in sortedKeys {
-            if let value = self[key] as? String {
-                text += "\(key) = \(value.openStepQuoted()); "
-            }
-        }
-        text += "};"
-        return text
-    }
-
     internal func write(to fileText: IndentableString) throws {
         let sortedKeys = self.keys.sorted(by: isaSorter)
         for key in sortedKeys {

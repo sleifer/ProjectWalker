@@ -51,6 +51,28 @@ public class PBXFileReference: PBXFileElement {
     }
 
     override func write(to fileText: IndentableString) throws {
-        fileText.appendLine("\(referenceKey) /* \(openStepComment) */ = \(items.openStepString())")
+        var propertyString: String = "isa = \(isa.openStepQuoted()); "
+        if let value = explicitFileType {
+            propertyString += "explicitFileType = \(value.openStepQuoted()); "
+        }
+        if let value = fileEncoding {
+            propertyString += "fileEncoding = \(value); "
+        }
+        if let value = includeInIndex {
+            propertyString += "includeInIndex = \(value ? 1 : 0); "
+        }
+        if let value = lastKnownFileType {
+            propertyString += "lastKnownFileType = \(value.openStepQuoted()); "
+        }
+        if let value = name {
+            propertyString += "name = \(value.openStepQuoted()); "
+        }
+        if let value = path {
+            propertyString += "path = \(value.openStepQuoted()); "
+        }
+        if let value = sourceTree {
+            propertyString += "sourceTree = \(value.openStepQuoted()); "
+        }
+        fileText.appendLine("\(referenceKey) /* \(openStepComment) */ = {\(propertyString)};")
     }
 }
