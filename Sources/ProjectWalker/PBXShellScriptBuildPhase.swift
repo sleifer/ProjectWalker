@@ -16,6 +16,7 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase {
     public var shellPath: String?
     public var shellScript: String?
     public var name: String?
+    public var showEnvVarsInLog: Bool?
 
     public override var openStepComment: String {
         return "ShellScript"
@@ -34,6 +35,7 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase {
         self.shellPath = items.string(forKey: "shellPath")
         self.shellScript = items.string(forKey: "shellScript")
         self.name = items.string(forKey: "name")
+        self.showEnvVarsInLog = items.bool(forKey: "showEnvVarsInLog")
 
         super.init(items: items)
     }
@@ -46,6 +48,7 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase {
         keys.remove("shellPath")
         keys.remove("shellScript")
         keys.remove("name")
+        keys.remove("showEnvVarsInLog")
 
         super.removeRead(keys: &keys)
     }
@@ -86,6 +89,9 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase {
             fileText.outdent()
             fileText.appendLine(");")
         }
+        if let value = name {
+            fileText.appendLine("name = \(value.openStepQuoted());")
+        }
         if let value = outputFileListPaths {
             fileText.appendLine("outputFileListPaths = (")
             fileText.indent()
@@ -113,8 +119,8 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase {
         if let value = shellScript {
             fileText.appendLine("shellScript = \(value.openStepQuoted());")
         }
-        if let value = name {
-            fileText.appendLine("name = \(value.openStepQuoted());")
+        if let value = showEnvVarsInLog {
+            fileText.appendLine("showEnvVarsInLog = \(value ? 1 : 0);")
         }
         fileText.outdent()
         fileText.appendLine("};")
