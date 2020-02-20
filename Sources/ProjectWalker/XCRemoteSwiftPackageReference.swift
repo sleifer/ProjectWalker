@@ -56,15 +56,3 @@ public class XCRemoteSwiftPackageReference: ProjectObject {
         fileText.appendLine("};")
     }
 }
-
-/*
- DB32D09A23F89A8C0025AE8F /* XCRemoteSwiftPackageReference "XcodeProj" */ = {
-     isa = XCRemoteSwiftPackageReference;
-     repositoryURL = "https://github.com/tuist/XcodeProj";
-     requirement = {
-         kind = upToNextMinorVersion;
-         minimumVersion = 7.8.0;
-     };
- };
-
- */

@@ -13,7 +13,7 @@ public class PBXCopyFilesBuildPhase: PBXBuildPhase {
     public var dstSubfolderSpec: Int?
 
     public override var openStepComment: String {
-        return "Copy Files"
+        return "CopyFiles"
     }
 
     public override init() {
@@ -33,5 +33,36 @@ public class PBXCopyFilesBuildPhase: PBXBuildPhase {
         keys.remove("dstSubfolderSpec")
 
         super.removeRead(keys: &keys)
+    }
+
+    override func write(to fileText: IndentableString) throws {
+        fileText.appendLine("\(referenceKey) /* \(self.openStepComment) */ = {")
+        fileText.indent()
+        fileText.appendLine("isa = \(isa);")
+        if let value = buildActionMask {
+            fileText.appendLine("buildActionMask = \(value);")
+        }
+        if let value = dstPath {
+            fileText.appendLine("dstPath = \(value.openStepQuoted());")
+        }
+        if let value = dstSubfolderSpec {
+            fileText.appendLine("dstSubfolderSpec = \(value);")
+        }
+        if let value = files {
+            fileText.appendLine("files = (")
+            fileText.indent()
+            for oneFile in value {
+                if let file = project?.object(withKey: oneFile) {
+                    fileText.appendLine("\(oneFile) /* \(file.openStepComment) */,")
+                }
+            }
+            fileText.outdent()
+            fileText.appendLine(");")
+        }
+        if let value = runOnlyForDeploymentPostprocessing {
+            fileText.appendLine("runOnlyForDeploymentPostprocessing = \(value ? 1 : 0);")
+        }
+        fileText.outdent()
+        fileText.appendLine("};")
     }
 }

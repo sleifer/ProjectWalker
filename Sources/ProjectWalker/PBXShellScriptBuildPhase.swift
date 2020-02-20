@@ -19,7 +19,7 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase {
     public var showEnvVarsInLog: Bool?
 
     public override var openStepComment: String {
-        return "ShellScript"
+        return name ?? "ShellScript"
     }
 
     public override init() {
