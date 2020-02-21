@@ -11,9 +11,10 @@ import Foundation
 public class PBXCopyFilesBuildPhase: PBXBuildPhase {
     public var dstPath: String?
     public var dstSubfolderSpec: Int?
+    public var name: String?
 
     public override var openStepComment: String {
-        return "CopyFiles"
+        return name ?? "CopyFiles"
     }
 
     public override init() {
@@ -24,6 +25,7 @@ public class PBXCopyFilesBuildPhase: PBXBuildPhase {
     public required init(items: ProjectFileDictionary) {
         self.dstPath = items.string(forKey: "dstPath")
         self.dstSubfolderSpec = items.int(forKey: "dstSubfolderSpec")
+        self.name = items.string(forKey: "name")
 
         super.init(items: items)
     }
@@ -31,6 +33,7 @@ public class PBXCopyFilesBuildPhase: PBXBuildPhase {
     override func removeRead(keys: inout Set<String>) {
         keys.remove("dstPath")
         keys.remove("dstSubfolderSpec")
+        keys.remove("name")
 
         super.removeRead(keys: &keys)
     }
@@ -58,6 +61,9 @@ public class PBXCopyFilesBuildPhase: PBXBuildPhase {
             }
             fileText.outdent()
             fileText.appendLine(");")
+        }
+        if let value = name {
+            fileText.appendLine("name = \(value.openStepQuoted());")
         }
         if let value = runOnlyForDeploymentPostprocessing {
             fileText.appendLine("runOnlyForDeploymentPostprocessing = \(value ? 1 : 0);")

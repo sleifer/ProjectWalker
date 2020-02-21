@@ -12,6 +12,7 @@ public class PBXBuildFile: ProjectObject {
     public var fileRef: Reference?
     public var productRef: Reference?
     public var settings: ProjectFileDictionary?
+    public var platformFilter: String?
 
     public override var openStepComment: String {
         if let value = fileRef, let file = project?.object(withKey: value), let buildPhase = project?.buildPhaseForObject(withKey: referenceKey) {
@@ -32,6 +33,7 @@ public class PBXBuildFile: ProjectObject {
         self.fileRef = items.string(forKey: "fileRef")
         self.productRef = items.string(forKey: "productRef")
         self.settings = items.dictionary(forKey: "settings")
+        self.platformFilter = items.string(forKey: "platformFilter")
 
         super.init(items: items)
     }
@@ -40,11 +42,13 @@ public class PBXBuildFile: ProjectObject {
         keys.remove("fileRef")
         keys.remove("productRef")
         keys.remove("settings")
+        keys.remove("platformFilter")
 
         super.removeRead(keys: &keys)
     }
 
     override func write(to fileText: IndentableString) throws {
+        #warning("need to write settings and platformFilter")
         if let value = fileRef, let file = project?.object(withKey: value), let buildPhase = project?.buildPhaseForObject(withKey: referenceKey) {
             fileText.appendLine("\(referenceKey) /* \(file.openStepComment) in \(buildPhase.openStepComment) */ = {isa = \(isa); fileRef = \(file.referenceKey) /* \(file.openStepComment) */; };")
         } else if let value = productRef, let file = project?.object(withKey: value), let buildPhase = project?.buildPhaseForObject(withKey: referenceKey) {

@@ -11,6 +11,11 @@ import Foundation
 public class PBXTargetDependency: ProjectObject {
     public var target: Reference?
     public var targetProxy: Reference?
+    public var name: String?
+
+    public override var openStepComment: String {
+        return name ?? "PBXTargetDependency"
+    }
 
     public override init() {
         super.init()
@@ -20,6 +25,7 @@ public class PBXTargetDependency: ProjectObject {
     public required init(items: ProjectFileDictionary) {
         self.target = items.string(forKey: "target")
         self.targetProxy = items.string(forKey: "targetProxy")
+        self.name = items.string(forKey: "name")
 
         super.init(items: items)
     }
@@ -27,10 +33,13 @@ public class PBXTargetDependency: ProjectObject {
     override func removeRead(keys: inout Set<String>) {
         keys.remove("target")
         keys.remove("targetProxy")
+        keys.remove("name")
 
         super.removeRead(keys: &keys)
     }
 
+    #warning("needs write")
+    
     public func getTarget() -> PBXNativeTarget? {
         if let objects = project?.objects, let key = target {
             return objects[key] as? PBXNativeTarget

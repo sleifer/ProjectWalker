@@ -14,8 +14,11 @@ public class PBXFileReference: PBXFileElement {
     public var lastKnownFileType: String?
     public var name: String?
     public var path: String?
+    public var plistStructureDefinitionIdentifier: String?
     public var sourceTree: String?
     public var includeInIndex: Bool?
+    public var xcLanguageSpecificationIdentifier: String?
+    public var lineEnding: Int?
 
     public override var openStepComment: String {
         return name ?? path ?? "<unknown>"
@@ -32,8 +35,11 @@ public class PBXFileReference: PBXFileElement {
         self.lastKnownFileType = items.string(forKey: "lastKnownFileType")
         self.name = items.string(forKey: "name")
         self.path = items.string(forKey: "path")
+        self.plistStructureDefinitionIdentifier = items.string(forKey: "plistStructureDefinitionIdentifier")
         self.sourceTree = items.string(forKey: "sourceTree")
         self.includeInIndex = items.bool(forKey: "includeInIndex")
+        self.xcLanguageSpecificationIdentifier = items.string(forKey: "xcLanguageSpecificationIdentifier")
+        self.lineEnding = items.int(forKey: "lineEnding")
 
         super.init(items: items)
     }
@@ -44,8 +50,11 @@ public class PBXFileReference: PBXFileElement {
         keys.remove("lastKnownFileType")
         keys.remove("name")
         keys.remove("path")
+        keys.remove("plistStructureDefinitionIdentifier")
         keys.remove("sourceTree")
         keys.remove("includeInIndex")
+        keys.remove("xcLanguageSpecificationIdentifier")
+        keys.remove("lineEnding")
 
         super.removeRead(keys: &keys)
     }
@@ -64,14 +73,23 @@ public class PBXFileReference: PBXFileElement {
         if let value = lastKnownFileType {
             propertyString += "lastKnownFileType = \(value.openStepQuoted()); "
         }
+        if let value = lineEnding {
+            propertyString += "lineEnding = \(value); "
+        }
         if let value = name {
             propertyString += "name = \(value.openStepQuoted()); "
         }
         if let value = path {
             propertyString += "path = \(value.openStepQuoted()); "
         }
+        if let value = plistStructureDefinitionIdentifier {
+            propertyString += "plistStructureDefinitionIdentifier = \(value.openStepQuoted()); "
+        }
         if let value = sourceTree {
             propertyString += "sourceTree = \(value.openStepQuoted()); "
+        }
+        if let value = xcLanguageSpecificationIdentifier {
+            propertyString += "xcLanguageSpecificationIdentifier = \(value.openStepQuoted()); "
         }
         fileText.appendLine("\(referenceKey) /* \(openStepComment) */ = {\(propertyString)};")
     }

@@ -11,6 +11,7 @@ public class PBXVariantGroup: ProjectObject {
     public var name: String?
     public var children: [Reference]?
     public var sourceTree: String?
+    public var path: String?
 
     public override var openStepComment: String {
         return name ?? "<unknown>"
@@ -25,6 +26,7 @@ public class PBXVariantGroup: ProjectObject {
         self.name = items.string(forKey: "name")
         self.children = items.stringArray(forKey: "children")
         self.sourceTree = items.string(forKey: "sourceTree")
+        self.path = items.string(forKey: "path")
 
         super.init(items: items)
     }
@@ -33,6 +35,7 @@ public class PBXVariantGroup: ProjectObject {
         keys.remove("name")
         keys.remove("children")
         keys.remove("sourceTree")
+        keys.remove("path")
 
         super.removeRead(keys: &keys)
     }
@@ -58,6 +61,9 @@ public class PBXVariantGroup: ProjectObject {
         }
         if let value = name {
             fileText.appendLine("name = \(value.openStepQuoted());")
+        }
+        if let value = path {
+            fileText.appendLine("path = \(value.openStepQuoted());")
         }
         if let value = sourceTree {
             fileText.appendLine("sourceTree = \(value.openStepQuoted());")

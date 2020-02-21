@@ -13,6 +13,9 @@ public class PBXGroup: PBXFileElement {
     public var name: String?
     public var sourceTree: String?
     public var path: String?
+    public var usesTabs: Bool?
+    public var indentWidth: Int?
+    public var tabWidth: Int?
 
     public override var openStepComment: String {
         return name ?? path ?? "<group>"
@@ -28,6 +31,9 @@ public class PBXGroup: PBXFileElement {
         self.sourceTree = items.string(forKey: "sourceTree")
         self.path = items.string(forKey: "path")
         self.children = items.stringArray(forKey: "children")
+        self.usesTabs = items.bool(forKey: "usesTabs")
+        self.indentWidth = items.int(forKey: "indentWidth")
+        self.tabWidth = items.int(forKey: "tabWidth")
 
         super.init(items: items)
     }
@@ -37,6 +43,9 @@ public class PBXGroup: PBXFileElement {
         keys.remove("sourceTree")
         keys.remove("path")
         keys.remove("children")
+        keys.remove("usesTabs")
+        keys.remove("indentWidth")
+        keys.remove("tabWidth")
 
         super.removeRead(keys: &keys)
     }
@@ -60,6 +69,9 @@ public class PBXGroup: PBXFileElement {
             fileText.outdent()
             fileText.appendLine(");")
         }
+        if let value = indentWidth {
+            fileText.appendLine("indentWidth = \(value);")
+        }
         if let value = name {
             fileText.appendLine("name = \(value.openStepQuoted());")
         }
@@ -68,6 +80,12 @@ public class PBXGroup: PBXFileElement {
         }
         if let value = sourceTree {
             fileText.appendLine("sourceTree = \(value.openStepQuoted());")
+        }
+        if let value = tabWidth {
+            fileText.appendLine("tabWidth = \(value);")
+        }
+        if let value = usesTabs {
+            fileText.appendLine("usesTabs = \(value ? 1 : 0);")
         }
         fileText.outdent()
         fileText.appendLine("};")
