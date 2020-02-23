@@ -21,6 +21,7 @@ public class XcodeProject {
     public var rootObject: String
     public private(set) var objects: [String: ProjectObject]
     private var format: PropertyListSerialization.PropertyListFormat
+    public private(set) var hadDecodeErrors: Bool
 
     private var groupReverseLookup: [String: PBXGroup]?
     private var buildPhaseReverseLookup: [String: PBXBuildPhase]?
@@ -35,9 +36,10 @@ public class XcodeProject {
         self.rootObject = ""
         self.objects = [:]
         self.format = .xml
+        self.hadDecodeErrors = false
     }
 
-    public convenience init?(contentsOf url: URL) {
+    public convenience init?(contentsOf url: URL, unknownTypeIsError: Bool = false, unusedKeyIsError: Bool = true) {
         self.init()
         do {
             self.path = url.appendingPathComponent("project.pbxproj")
@@ -59,11 +61,12 @@ public class XcodeProject {
                     if let objects = plist.dictionary(forKey: "objects") {
                         for objectKey in objects.keys.sorted() {
                             if let entry = objects.dictionary(forKey: objectKey) {
-                                let decoded = ProjectObject.decode(from: entry)
+                                let decoded = ProjectObject.decode(from: entry, unknownTypeIsError: unknownTypeIsError, unusedKeyIsError: unusedKeyIsError)
                                 switch decoded {
                                 case .success(let object):
                                     add(object: object, for: objectKey)
                                 case .failure(let error):
+                                    self.hadDecodeErrors = true
                                     switch error {
                                     case .missingIsa(let isa):
                                         print("missing isa: \(isa)")
@@ -97,6 +100,12 @@ public class XcodeProject {
     }
 
     public func write(to url: URL) throws {
+        let text = try writeToString()
+
+        try text.write(to: url, atomically: true, encoding: .utf8)
+    }
+
+    public func writeToString() throws -> String {
         if format != .openStep {
             throw XcodeProjectError.notOpenStepFormat
         }
@@ -137,7 +146,7 @@ public class XcodeProject {
         fileText.outdent()
         fileText.appendLine("}")
 
-        try fileText.text.write(to: url, atomically: true, encoding: .utf8)
+        return fileText.text
     }
 
     public func add(object: ProjectObject, for key: String) {
@@ -164,7 +173,7 @@ public class XcodeProject {
 
     func makeBuildPhaseReverseLookup() {
         let buildPhases = objects.values.compactMap { (object) -> PBXBuildPhase? in
-            return object as? PBXBuildPhase
+            object as? PBXBuildPhase
         }
         var lookup: [String: PBXBuildPhase] = [:]
         for buildPhase in buildPhases {
