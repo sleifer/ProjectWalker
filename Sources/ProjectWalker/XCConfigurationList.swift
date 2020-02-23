@@ -17,8 +17,8 @@ public class XCConfigurationList: ProjectObject {
         if let user = project?.buildConfigurationListUserForObject(withKey: referenceKey) {
             if let user = user as? PBXProject {
                 var name = user.openStepComment
-                if let targetObject = project?.object(withKey: user.targets?.first) {
-                    name = targetObject.openStepComment
+                if let projectName = project?.path.deletingLastPathComponent().deletingPathExtension().lastPathComponent {
+                    name = projectName
                 }
                 return "Build configuration list for PBXProject \"\(name)\""
             } else if let user = user as? PBXNativeTarget {
