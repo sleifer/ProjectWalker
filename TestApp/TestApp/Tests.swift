@@ -12,9 +12,12 @@ import ProjectWalker
 class Tests: ObservableObject {
     @Published var project: XcodeProject?
 
+    let readPath = "/Users/simeon/Desktop/test/test.xcodeproj"
+    let writePath = "/Users/simeon/Desktop/test.pbxproj"
+    let batchTestPath = "/Users/simeon/Documents/Code"
+
     func readTest() {
-        let path = "/Users/simeon/Desktop/test/test.xcodeproj"
-        project = XcodeProject(contentsOf: URL(fileURLWithPath: path))
+        project = XcodeProject(contentsOf: URL(fileURLWithPath: readPath))
         if let project = project {
             let filtered = project.unhandledTypes()
 
@@ -33,8 +36,7 @@ class Tests: ObservableObject {
         }
         if let project = project {
             do {
-            let path = "/Users/simeon/Desktop/test.pbxproj"
-            try project.write(to: URL(fileURLWithPath: path))
+                try project.write(to: URL(fileURLWithPath: writePath))
             } catch {
                 print(error)
             }
@@ -93,5 +95,78 @@ class Tests: ObservableObject {
                 print("No unhandled types.")
             }
         }
+    }
+
+    func batchTest() {
+        let repos = collectRepositoryPaths(from: URL(fileURLWithPath: batchTestPath))
+        for repo in repos {
+            let projects = xcodeProjects(from: repo)
+            for project in projects {
+                print()
+                print("Testing: \(project.path)")
+
+                if let xproj = XcodeProject(contentsOf: project, unknownTypeIsError: true, unusedKeyIsError: true) {
+                    if xproj.hadDecodeErrors == true {
+                        print("Error: had unknown types or missing keys")
+                    } else {
+                        do {
+                            let original = try String(contentsOf: xproj.path)
+                            let rewritten = try xproj.writeToString()
+                            if original != rewritten {
+                                print("Error: rewritten does not match original")
+                            } else {
+                                print("Pass")
+                            }
+                        } catch {
+                            print("Error comparing rewritten: \(error)")
+                        }
+                    }
+                } else {
+                    print("Error: failed to read")
+                }
+            }
+        }
+        print()
+        print("Done.")
+    }
+
+    @discardableResult
+    func collectRepositoryPaths(from rootDirectory: URL, _ handler: ((URL) -> Void)? = nil) -> [URL] {
+        var directories: [URL] = []
+
+        let searchDirs: [URL]
+        searchDirs = [rootDirectory]
+
+        for searchDirPath in searchDirs {
+            let fm = FileManager.default
+            let enumerator = fm.enumerator(at: searchDirPath, includingPropertiesForKeys: nil)
+            while let file = enumerator?.nextObject() as? URL {
+                if file.lastPathComponent == ".git" {
+                    let dir = file.deletingLastPathComponent()
+                    if let handler = handler {
+                        handler(dir)
+                    }
+                    directories.append(dir)
+                }
+            }
+        }
+        return directories
+    }
+
+    func xcodeProjects(from directory: URL) -> [URL] {
+        do {
+            let fileManager = FileManager.default
+            let files = try fileManager.contentsOfDirectory(at: directory, includingPropertiesForKeys: nil, options: [])
+            let projects = files.filter { (file) -> Bool in
+                if file.lastPathComponent.hasSuffix(".xcodeproj") {
+                    if fileManager.fileExists(atPath: file.appendingPathComponent("project.pbxproj").path) == true {
+                        return true
+                    }
+                }
+                return false
+            }
+            return projects
+        } catch {}
+        return []
     }
 }

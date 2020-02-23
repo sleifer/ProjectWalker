@@ -13,7 +13,11 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-            Text("Hello, World!")
+            Text("ProjectWalker tests")
+                .padding(.top)
+            Text("Read from: \(tests.readPath)")
+                .padding(.top)
+            Text("Write to: \(tests.writePath)")
                 .padding(.top)
             Button(action: {
                 self.tests.readTest()
@@ -38,14 +42,24 @@ struct ContentView: View {
             }
             .disabled(self.tests.project == nil)
 
-            tests.project.map { (project) in
+            tests.project.map { project in
                 ProjectInfoView(project: project)
             }
             .padding(.top)
 
+            Group {
+                Text("Batch tests: \(tests.batchTestPath)")
+                    .padding(.top)
+                Button(action: {
+                    self.tests.batchTest()
+            }) {
+                    Text("Run batchTest")
+                }
+            }
+
             Spacer()
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .frame(minWidth: 700, maxWidth: .infinity, minHeight: 500, maxHeight: .infinity)
     }
 }
 
