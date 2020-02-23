@@ -38,8 +38,31 @@ public class PBXTargetDependency: ProjectObject {
         super.removeRead(keys: &keys)
     }
 
-    #warning("needs write")
-    
+    override func write(to fileText: IndentableString) throws {
+        fileText.appendLine("\(referenceKey) /* \(openStepComment) */ = {")
+        fileText.indent()
+        fileText.appendLine("isa = \(isa);")
+        if let name = name {
+            fileText.appendLine("name = \(name);")
+        }
+        if let value = target {
+            if let object = project?.object(withKey: value) {
+                fileText.appendLine("target = \(value.openStepQuoted()) /* \(object.openStepComment) */;")
+            } else {
+                fileText.appendLine("target = \(value.openStepQuoted());")
+            }
+        }
+        if let value = targetProxy {
+            if let object = project?.object(withKey: value) {
+                fileText.appendLine("targetProxy = \(value.openStepQuoted()) /* \(object.openStepComment) */;")
+            } else {
+                fileText.appendLine("targetProxy = \(value.openStepQuoted());")
+            }
+        }
+        fileText.outdent()
+        fileText.appendLine("};")
+    }
+
     public func getTarget() -> PBXNativeTarget? {
         if let objects = project?.objects, let key = target {
             return objects[key] as? PBXNativeTarget

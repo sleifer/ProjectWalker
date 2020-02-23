@@ -48,11 +48,30 @@ public class PBXBuildFile: ProjectObject {
     }
 
     override func write(to fileText: IndentableString) throws {
-        #warning("need to write settings and platformFilter")
         if let value = fileRef, let file = project?.object(withKey: value), let buildPhase = project?.buildPhaseForObject(withKey: referenceKey) {
-            fileText.appendLine("\(referenceKey) /* \(file.openStepComment) in \(buildPhase.openStepComment) */ = {isa = \(isa); fileRef = \(file.referenceKey) /* \(file.openStepComment) */; };")
+            fileText.append("\(referenceKey) /* \(file.openStepComment) in \(buildPhase.openStepComment) */ = {isa = \(isa); ")
+            fileText.append("fileRef = \(file.referenceKey) /* \(file.openStepComment) */; ", ignoreIndent: true)
+            if let platformFilter = platformFilter {
+                fileText.append("platformFilter = \(platformFilter.openStepQuoted()); ", ignoreIndent: true)
+            }
+            if let settings = settings {
+                let subText = IndentableString()
+                try settings.write(to: subText, oneLine: true)
+                fileText.append("settings = {\(subText.text)}; ", ignoreIndent: true)
+            }
+            fileText.appendLine("};", ignoreIndent: true)
         } else if let value = productRef, let file = project?.object(withKey: value), let buildPhase = project?.buildPhaseForObject(withKey: referenceKey) {
-            fileText.appendLine("\(referenceKey) /* \(file.openStepComment) in \(buildPhase.openStepComment) */ = {isa = \(isa); productRef = \(file.referenceKey) /* \(file.openStepComment) */; };")
+            fileText.append("\(referenceKey) /* \(file.openStepComment) in \(buildPhase.openStepComment) */ = {isa = \(isa); ")
+            if let platformFilter = platformFilter {
+                fileText.append("platformFilter = \(platformFilter.openStepQuoted()); ", ignoreIndent: true)
+            }
+            fileText.append("productRef = \(file.referenceKey) /* \(file.openStepComment) */; ", ignoreIndent: true)
+            if let settings = settings {
+                let subText = IndentableString()
+                try settings.write(to: subText, oneLine: true)
+                fileText.append("settings = {\(subText.text)}; ", ignoreIndent: true)
+            }
+            fileText.appendLine("};", ignoreIndent: true)
         } else {
             throw XcodeProjectError.objectWrite(self)
         }

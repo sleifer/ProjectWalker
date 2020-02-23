@@ -41,4 +41,12 @@ class IndentableString {
             text.append("\(indentString)\(line)\n")
         }
     }
+
+    func append(_ inText: String, ignoreIndent: Bool = false) {
+        if ignoreIndent == true {
+            text.append("\(inText)")
+        } else {
+            text.append("\(indentString)\(inText)")
+        }
+    }
 }

@@ -14,6 +14,10 @@ public class PBXContainerItemProxy: ProjectObject {
     public var remoteGlobalIDString: Reference?
     public var remoteInfo: String?
 
+    public override var openStepComment: String {
+        return "PBXContainerItemProxy"
+    }
+
     public override init() {
         super.init()
         self.isa = "PBXContainerItemProxy"
@@ -51,11 +55,11 @@ public class PBXContainerItemProxy: ProjectObject {
         if let value = proxyType {
             fileText.appendLine("proxyType = \(value);")
         }
-        if let value = remoteInfo {
-            fileText.appendLine("remoteInfo = \(value.openStepQuoted());")
-        }
         if let value = remoteGlobalIDString {
             fileText.appendLine("remoteGlobalIDString = \(value.openStepQuoted());")
+        }
+        if let value = remoteInfo {
+            fileText.appendLine("remoteInfo = \(value.openStepQuoted());")
         }
         fileText.outdent()
         fileText.appendLine("};")

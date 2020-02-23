@@ -100,7 +100,11 @@ public class PBXNativeTarget: ProjectObject, BuildConfigurationListUser {
             fileText.appendLine("dependencies = (")
             fileText.indent()
             for item in value {
-                fileText.appendLine("\(item.openStepQuoted()),")
+                if let object = project?.object(withKey: item) {
+                    fileText.appendLine("\(item.openStepQuoted()) /* \(object.openStepComment) */,")
+                } else {
+                    fileText.appendLine("\(item.openStepQuoted()),")
+                }
             }
             fileText.outdent()
             fileText.appendLine(");")

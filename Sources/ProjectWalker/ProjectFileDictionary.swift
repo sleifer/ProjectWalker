@@ -60,31 +60,55 @@ public extension ProjectFileDictionary {
         return nil
     }
 
-    internal func write(to fileText: IndentableString) throws {
+    internal func write(to fileText: IndentableString, oneLine: Bool = false) throws {
         let sortedKeys = self.keys.sorted(by: isaSorter)
-        for key in sortedKeys {
-            if let value = self[key] as? String {
-                fileText.appendLine("\(key) = \(value.openStepQuoted());")
-            } else if let value = self[key] as? ProjectFileDictionary {
-                fileText.appendLine("\(key) = {")
-                fileText.indent()
-                try value.write(to: fileText)
-                fileText.outdent()
-                fileText.appendLine("};")
-            } else if let value = self[key] as? ProjectFileArray {
-                fileText.appendLine("\(key) = (")
-                fileText.indent()
-                for item in value {
-                    if let stringValue = item as? String {
-                        fileText.appendLine("\(stringValue.openStepQuoted()),")
-                    } else {
-                        fileText.appendLine("\(item),")
+        if oneLine == true {
+            for key in sortedKeys {
+                if let value = self[key] as? String {
+                    fileText.append("\(key.openStepQuoted()) = \(value.openStepQuoted()); ", ignoreIndent: true)
+                } else if let value = self[key] as? ProjectFileDictionary {
+                    fileText.append("\(key) = {", ignoreIndent: true)
+                    try value.write(to: fileText, oneLine: true)
+                    fileText.append("};", ignoreIndent: true)
+                } else if let value = self[key] as? ProjectFileArray {
+                    fileText.append("\(key) = (", ignoreIndent: true)
+                    for item in value {
+                        if let stringValue = item as? String {
+                            fileText.append("\(stringValue.openStepQuoted()), ", ignoreIndent: true)
+                        } else {
+                            fileText.append("\(item), ", ignoreIndent: true)
+                        }
                     }
+                    fileText.append("); ", ignoreIndent: true)
+                } else if let value = self[key] {
+                    fileText.append("\(key) = \(value); ", ignoreIndent: true)
                 }
-                fileText.outdent()
-                fileText.appendLine(");")
-            } else if let value = self[key] {
-                fileText.appendLine("\(key) = \(value);")
+            }
+        } else {
+            for key in sortedKeys {
+                if let value = self[key] as? String {
+                    fileText.appendLine("\(key.openStepQuoted()) = \(value.openStepQuoted());")
+                } else if let value = self[key] as? ProjectFileDictionary {
+                    fileText.appendLine("\(key) = {")
+                    fileText.indent()
+                    try value.write(to: fileText)
+                    fileText.outdent()
+                    fileText.appendLine("};")
+                } else if let value = self[key] as? ProjectFileArray {
+                    fileText.appendLine("\(key) = (")
+                    fileText.indent()
+                    for item in value {
+                        if let stringValue = item as? String {
+                            fileText.appendLine("\(stringValue.openStepQuoted()),")
+                        } else {
+                            fileText.appendLine("\(item),")
+                        }
+                    }
+                    fileText.outdent()
+                    fileText.appendLine(");")
+                } else if let value = self[key] {
+                    fileText.appendLine("\(key) = \(value);")
+                }
             }
         }
     }

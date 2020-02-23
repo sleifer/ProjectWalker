@@ -105,7 +105,11 @@ public class PBXProject: ProjectObject, BuildConfigurationListUser {
             fileText.appendLine(");")
         }
         if let value = mainGroup {
-            fileText.appendLine("mainGroup = \(value.openStepQuoted());")
+            if let object = project?.object(withKey: value) as? PBXGroup, object.name != nil {
+                fileText.appendLine("mainGroup = \(value.openStepQuoted()) /* \(object.openStepComment) */;")
+            } else {
+                fileText.appendLine("mainGroup = \(value.openStepQuoted());")
+            }
         }
         if let value = packageReferences {
             fileText.appendLine("packageReferences = (")

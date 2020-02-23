@@ -7,7 +7,7 @@
 
 import Foundation
 
-let quotingCharacterSet = CharacterSet(charactersIn: "\\\"=@+-$:< >")
+let quotingCharacterSet = CharacterSet(charactersIn: "\\\"=@+-$:,< >")
 
 extension String {
     func openStepQuoted() -> String {
