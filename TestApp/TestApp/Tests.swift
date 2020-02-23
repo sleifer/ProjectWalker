@@ -11,6 +11,7 @@ import ProjectWalker
 
 class Tests: ObservableObject {
     @Published var project: XcodeProject?
+    @Published var readWriteResult: String = ""
 
     let readPath = "/Users/simeon/Desktop/test/test.xcodeproj"
     let writePath = "/Users/simeon/Desktop/test.pbxproj"
@@ -43,33 +44,6 @@ class Tests: ObservableObject {
         }
     }
 
-    func configurationsTest() {
-        if let project = project {
-            if let proj = project.project() {
-                print(proj)
-                if let targets = proj.getTargets() {
-                    for target in targets {
-                        print(target)
-                        if let configList = target.getBuildConfigurationList() {
-                            print(configList)
-                            print("default: \(configList.defaultConfigurationName ?? "<none>")")
-                            if let configurations = configList.getBuildConfigurations() {
-                                for configuration in configurations {
-                                    print(configuration)
-                                    if let settings = configuration.buildSettings {
-                                        for (key, value) in settings {
-                                            print("\(key) = \(value) .. \(type(of: value))")
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     func infoOnUnhandled() {
         if let project = project {
             let types = project.unhandledTypes()
@@ -94,6 +68,33 @@ class Tests: ObservableObject {
             if types.count == 0 {
                 print("No unhandled types.")
             }
+        }
+    }
+
+    func readWriteTest(_ path: String) {
+        readWriteResult = "Testing: \(path)"
+
+        if let xproj = XcodeProject(contentsOf: URL(fileURLWithPath: path), unknownTypeIsError: true, unusedKeyIsError: true) {
+            if xproj.hadDecodeErrors == true {
+                readWriteResult = "Error: had unknown types or missing keys"
+            } else {
+                do {
+                    let original = try String(contentsOf: xproj.path)
+                    let rewritten = try xproj.writeToString()
+                    if original != rewritten {
+                        readWriteResult = "Error: rewritten does not match original"
+                        try rewritten.write(toFile: writePath, atomically: true, encoding: .utf8)
+                        ProcessRunner.runCommand("bbedit \"\(xproj.path.path)\"")
+                        ProcessRunner.runCommand("bbedit \"\(writePath)\"")
+                    } else {
+                        readWriteResult = "Pass"
+                    }
+                } catch {
+                    readWriteResult = "Error comparing rewritten: \(error)"
+                }
+            }
+        } else {
+            readWriteResult = "Error: failed to read"
         }
     }
 

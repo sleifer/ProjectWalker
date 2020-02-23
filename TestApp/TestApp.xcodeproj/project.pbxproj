@@ -15,6 +15,10 @@
 		DB32D0D523F9E2A50025AE8F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB32D0D323F9E2A50025AE8F /* Main.storyboard */; };
 		DB32D0DC23F9E2D00025AE8F /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB32D0DB23F9E2D00025AE8F /* Tests.swift */; };
 		DB32D0DF23F9E39A0025AE8F /* ProjectWalker in Frameworks */ = {isa = PBXBuildFile; productRef = DB32D0DE23F9E39A0025AE8F /* ProjectWalker */; };
+		DB649E282402C805000CF752 /* ProcessRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB649E272402C805000CF752 /* ProcessRunner.swift */; };
+		DB649E2A2402C829000CF752 /* ColorTerminal.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB649E292402C829000CF752 /* ColorTerminal.swift */; };
+		DB649E2C2402C842000CF752 /* String-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB649E2B2402C842000CF752 /* String-Extension.swift */; };
+		DB649E2E2402C866000CF752 /* CommandLineRunLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB649E2D2402C866000CF752 /* CommandLineRunLoop.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +34,10 @@
 		DB32D0DB23F9E2D00025AE8F /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		DB41AF5F23F9E742004A2ADC /* ProjectWalker */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ProjectWalker; path = ..; sourceTree = "<group>"; };
 		DB463C692252375F00D8EFBC /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
+		DB649E272402C805000CF752 /* ProcessRunner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProcessRunner.swift; sourceTree = "<group>"; };
+		DB649E292402C829000CF752 /* ColorTerminal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorTerminal.swift; sourceTree = "<group>"; };
+		DB649E2B2402C842000CF752 /* String-Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String-Extension.swift"; sourceTree = "<group>"; };
+		DB649E2D2402C866000CF752 /* CommandLineRunLoop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandLineRunLoop.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,12 +57,16 @@
 			children = (
 				DB32D0CA23F9E2A30025AE8F /* AppDelegate.swift */,
 				DB32D0CE23F9E2A50025AE8F /* Assets.xcassets */,
+				DB649E292402C829000CF752 /* ColorTerminal.swift */,
+				DB649E2D2402C866000CF752 /* CommandLineRunLoop.swift */,
 				DB32D0CC23F9E2A30025AE8F /* ContentView.swift */,
-				DB2ABB2323FA309C008F21C3 /* ProjectInfoView.swift */,
 				DB32D0D623F9E2A50025AE8F /* Info.plist */,
 				DB32D0D323F9E2A50025AE8F /* Main.storyboard */,
 				DB32D0D023F9E2A50025AE8F /* Preview Content */,
+				DB649E272402C805000CF752 /* ProcessRunner.swift */,
+				DB2ABB2323FA309C008F21C3 /* ProjectInfoView.swift */,
 				DB32D0D723F9E2A50025AE8F /* ProjectWalkerTestApp.entitlements */,
+				DB649E2B2402C842000CF752 /* String-Extension.swift */,
 				DB32D0DB23F9E2D00025AE8F /* Tests.swift */,
 			);
 			path = TestApp;
@@ -169,8 +181,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB32D0CD23F9E2A30025AE8F /* ContentView.swift in Sources */,
+				DB649E2E2402C866000CF752 /* CommandLineRunLoop.swift in Sources */,
 				DB32D0DC23F9E2D00025AE8F /* Tests.swift in Sources */,
 				DB2ABB2423FA309C008F21C3 /* ProjectInfoView.swift in Sources */,
+				DB649E2A2402C829000CF752 /* ColorTerminal.swift in Sources */,
+				DB649E282402C805000CF752 /* ProcessRunner.swift in Sources */,
+				DB649E2C2402C842000CF752 /* String-Extension.swift in Sources */,
 				DB32D0CB23F9E2A30025AE8F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
