@@ -63,9 +63,9 @@ public class PBXTargetDependency: ProjectObject {
         fileText.appendLine("};")
     }
 
-    public func getTarget() -> PBXNativeTarget? {
+    public func getTarget() -> PBXTarget? {
         if let objects = project?.objects, let key = target {
-            return objects[key] as? PBXNativeTarget
+            return objects[key] as? PBXTarget
         }
         return nil
     }

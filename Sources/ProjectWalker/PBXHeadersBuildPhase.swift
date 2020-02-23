@@ -1,20 +1,20 @@
 //
-//  PBXNativeTarget.swift
-//
+//  PBXHeadersBuildPhase.swift
+//  
 //
 //  Created by Simeon Leifer on 2/23/20.
 //
 
 import Foundation
 
-public class PBXNativeTarget: PBXTarget {
+public class PBXHeadersBuildPhase: PBXBuildPhase {
     public override var openStepComment: String {
-        return name ?? "PBXNativeTarget"
+        return "Headers"
     }
 
     public override init() {
         super.init()
-        self.isa = "PBXNativeTarget"
+        self.isa = "PBXHeadersBuildPhase"
     }
 
     public required init(items: ProjectFileDictionary) {

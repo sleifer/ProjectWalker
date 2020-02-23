@@ -182,10 +182,10 @@ public class PBXProject: ProjectObject, BuildConfigurationListUser {
         return nil
     }
 
-    public func getTargets() -> [PBXNativeTarget]? {
+    public func getTargets() -> [PBXTarget]? {
         if let objects = project?.objects, let targets = targets {
-            return targets.compactMap({ (key) -> PBXNativeTarget? in
-                return objects[key] as? PBXNativeTarget
+            return targets.compactMap({ (key) -> PBXTarget? in
+                return objects[key] as? PBXTarget
             })
         }
         return nil

@@ -66,14 +66,17 @@ public class ProjectObject: Hashable {
     }
 
     static func registerProjectObjectTypes() {
+        addProjectObjectType(PBXAggregateTarget.self, withKey: "PBXAggregateTarget")
         addProjectObjectType(PBXBuildFile.self, withKey: "PBXBuildFile")
         addProjectObjectType(PBXContainerItemProxy.self, withKey: "PBXContainerItemProxy")
         addProjectObjectType(PBXCopyFilesBuildPhase.self, withKey: "PBXCopyFilesBuildPhase")
         addProjectObjectType(PBXFileReference.self, withKey: "PBXFileReference")
         addProjectObjectType(PBXFrameworksBuildPhase.self, withKey: "PBXFrameworksBuildPhase")
         addProjectObjectType(PBXGroup.self, withKey: "PBXGroup")
+        addProjectObjectType(PBXHeadersBuildPhase.self, withKey: "PBXHeadersBuildPhase")
         addProjectObjectType(PBXNativeTarget.self, withKey: "PBXNativeTarget")
         addProjectObjectType(PBXProject.self, withKey: "PBXProject")
+        addProjectObjectType(PBXReferenceProxy.self, withKey: "PBXReferenceProxy")
         addProjectObjectType(PBXResourcesBuildPhase.self, withKey: "PBXResourcesBuildPhase")
         addProjectObjectType(PBXShellScriptBuildPhase.self, withKey: "PBXShellScriptBuildPhase")
         addProjectObjectType(PBXSourcesBuildPhase.self, withKey: "PBXSourcesBuildPhase")
@@ -83,6 +86,7 @@ public class ProjectObject: Hashable {
         addProjectObjectType(XCConfigurationList.self, withKey: "XCConfigurationList")
         addProjectObjectType(XCRemoteSwiftPackageReference.self, withKey: "XCRemoteSwiftPackageReference")
         addProjectObjectType(XCSwiftPackageProductDependency.self, withKey: "XCSwiftPackageProductDependency")
+        addProjectObjectType(XCVersionGroup.self, withKey: "XCVersionGroup")
     }
 
     public static func decode(from items: ProjectFileDictionary, unknownTypeIsError: Bool = false, unusedKeyIsError: Bool = true) -> Result<ProjectObject, ProjectObjectDecodeError> {

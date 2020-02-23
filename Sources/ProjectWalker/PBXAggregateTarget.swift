@@ -1,20 +1,20 @@
 //
-//  PBXNativeTarget.swift
-//
+//  PBXAggregateTarget.swift
+//  
 //
 //  Created by Simeon Leifer on 2/23/20.
 //
 
 import Foundation
 
-public class PBXNativeTarget: PBXTarget {
+public class PBXAggregateTarget: PBXTarget {
     public override var openStepComment: String {
-        return name ?? "PBXNativeTarget"
+        return name ?? "PBXAggregateTarget"
     }
 
     public override init() {
         super.init()
-        self.isa = "PBXNativeTarget"
+        self.isa = "PBXAggregateTarget"
     }
 
     public required init(items: ProjectFileDictionary) {

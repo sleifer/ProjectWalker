@@ -23,6 +23,8 @@ public class XCConfigurationList: ProjectObject {
                 return "Build configuration list for PBXProject \"\(name)\""
             } else if let user = user as? PBXNativeTarget {
                 return "Build configuration list for PBXNativeTarget \"\(user.openStepComment)\""
+            } else if let user = user as? PBXAggregateTarget {
+                return "Build configuration list for PBXAggregateTarget \"\(user.openStepComment)\""
             }
         }
         return "XCConfigurationList"
