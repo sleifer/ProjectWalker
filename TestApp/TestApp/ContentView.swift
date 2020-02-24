@@ -36,12 +36,16 @@ struct SingleReadWriteTestView: View {
             TextField("Project", text: $projectPath)
             .padding()
             Button(action: {
+                UserDefaults.standard.set(self.projectPath, forKey: "projectPath")
                 self.tests.readWriteTest(self.projectPath)
             }) {
                 Text("Run readWriteTest")
             }
             Text(tests.readWriteResult)
             .padding()
+        }
+        .onAppear {
+            self.projectPath = UserDefaults.standard.string(forKey: "projectPath") ?? ""
         }
     }
 }

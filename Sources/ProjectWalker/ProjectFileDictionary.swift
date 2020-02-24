@@ -28,19 +28,19 @@ public extension ProjectFileDictionary {
         }
         return nil
     }
-
+    
     func string(forKey key: String) -> String? {
         return self[key] as? String
     }
-
+    
     func array(forKey key: String) -> ProjectFileArray? {
         return self[key] as? ProjectFileArray
     }
-
+    
     func dictionary(forKey key: String) -> ProjectFileDictionary? {
         return self[key] as? ProjectFileDictionary
     }
-
+    
     func bool(forKey key: String) -> Bool? {
         if let value = self[key] as? String {
             if let intValue = Int(value) {
@@ -52,14 +52,18 @@ public extension ProjectFileDictionary {
         }
         return nil
     }
-
+    
     func stringArray(forKey key: String) -> [String]? {
         if let value = self[key] as? [String] {
             return value
         }
         return nil
     }
-
+    
+    func isaSortedKeys() -> [String] {
+        return self.keys.sorted(by: isaSorter)
+    }
+    
     internal func write(to fileText: IndentableString, oneLine: Bool = false) throws {
         let sortedKeys = self.keys.sorted(by: isaSorter)
         if oneLine == true {

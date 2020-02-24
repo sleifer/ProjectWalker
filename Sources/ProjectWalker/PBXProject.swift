@@ -17,7 +17,7 @@ public class PBXProject: ProjectObject, BuildConfigurationListUser {
     public var mainGroup: Reference?
     public var productRefGroup: Reference?
     public var projectDirPath: String?
-    public var projectReferences: ProjectFileDictionary?
+    public var projectReferences: ProjectFileArray?
     public var packageReferences: [Reference]?
     public var attributes: ProjectFileDictionary?
     public var projectRoot: String?
@@ -41,7 +41,7 @@ public class PBXProject: ProjectObject, BuildConfigurationListUser {
         self.mainGroup = items.string(forKey: "mainGroup")
         self.productRefGroup = items.string(forKey: "productRefGroup")
         self.projectDirPath = items.string(forKey: "projectDirPath")
-        self.projectReferences = items.dictionary(forKey: "projectReferences")
+        self.projectReferences = items.array(forKey: "projectReferences")
         self.packageReferences = items.stringArray(forKey: "packageReferences")
         self.attributes = items.dictionary(forKey: "attributes")
         self.projectRoot = items.string(forKey: "projectRoot")
@@ -135,11 +135,27 @@ public class PBXProject: ProjectObject, BuildConfigurationListUser {
             fileText.appendLine("projectDirPath = \(value.openStepQuoted());")
         }
         if let value = projectReferences {
-            fileText.appendLine("projectReferences = {")
+            fileText.appendLine("projectReferences = (")
             fileText.indent()
-            try value.write(to: fileText)
+            for item in value {
+                fileText.appendLine("{")
+                fileText.indent()
+                if let item = item as? ProjectFileDictionary {
+                    for key in item.isaSortedKeys() {
+                        if let value = item[key] as? String {
+                            if let object = project?.object(withKey: value) {
+                                fileText.appendLine("\(key) = \(value.openStepQuoted()) /* \(object.openStepComment) */;")
+                            } else {
+                                fileText.appendLine("\(key) = \(value.openStepQuoted());")
+                            }
+                        }
+                    }
+                }
+                fileText.outdent()
+                fileText.appendLine("},")
+            }
             fileText.outdent()
-            fileText.appendLine("};")
+            fileText.appendLine(");")
         }
         if let value = projectRoot {
             fileText.appendLine("projectRoot = \(value.openStepQuoted());")

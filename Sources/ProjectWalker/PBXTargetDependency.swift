@@ -14,7 +14,7 @@ public class PBXTargetDependency: ProjectObject {
     public var name: String?
 
     public override var openStepComment: String {
-        return name ?? "PBXTargetDependency"
+        return "PBXTargetDependency"
     }
 
     public override init() {
@@ -43,7 +43,7 @@ public class PBXTargetDependency: ProjectObject {
         fileText.indent()
         fileText.appendLine("isa = \(isa);")
         if let name = name {
-            fileText.appendLine("name = \(name);")
+            fileText.appendLine("name = \(name.openStepQuoted());")
         }
         if let value = target {
             if let object = project?.object(withKey: value) {
