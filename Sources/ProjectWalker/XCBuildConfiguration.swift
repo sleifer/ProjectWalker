@@ -43,7 +43,11 @@ public class XCBuildConfiguration: ProjectObject {
         fileText.indent()
         fileText.appendLine("isa = \(isa);")
         if let value = baseConfigurationReference {
-            fileText.appendLine("baseConfigurationReference = \(value.openStepQuoted());")
+            if let object = project?.object(withKey: value) {
+                fileText.appendLine("baseConfigurationReference = \(value.openStepQuoted()) /* \(object.openStepComment) */;")
+            } else {
+                fileText.appendLine("baseConfigurationReference = \(value.openStepQuoted());")
+            }
         }
         if let value = buildSettings {
             fileText.appendLine("buildSettings = {")
