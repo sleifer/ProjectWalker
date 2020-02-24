@@ -99,36 +99,37 @@ class Tests: ObservableObject {
     }
 
     func batchTest() {
+        var projectCount: Int = 0
         let repos = collectRepositoryPaths(from: URL(fileURLWithPath: batchTestPath))
         for repo in repos {
             let projects = xcodeProjects(from: repo)
             for project in projects {
-                print()
-                print("Testing: \(project.path)")
+                projectCount += 1
+                let logPrefix = "\nTesting: \(project.path)\n"
 
                 if let xproj = XcodeProject(contentsOf: project, unknownTypeIsError: true, unusedKeyIsError: true) {
                     if xproj.hadDecodeErrors == true {
-                        print("Error: had unknown types or missing keys")
+                        print("\(logPrefix)Error: had unknown types or missing keys")
                     } else {
                         do {
                             let original = try String(contentsOf: xproj.path)
                             let rewritten = try xproj.writeToString()
                             if original != rewritten {
-                                print("Error: rewritten does not match original")
+                                print("\(logPrefix)Error: rewritten does not match original")
                             } else {
-                                print("Pass")
+//                                print("Pass")
                             }
                         } catch {
-                            print("Error comparing rewritten: \(error)")
+                            print("\(logPrefix)Error comparing rewritten: \(error)")
                         }
                     }
                 } else {
-                    print("Error: failed to read")
+                    print("\(logPrefix)Error: failed to read")
                 }
             }
         }
         print()
-        print("Done.")
+        print("Done testing \(projectCount) projects.")
     }
 
     @discardableResult
