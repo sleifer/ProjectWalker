@@ -6,8 +6,8 @@
 //  Copyright © 2020 droolingcat.com. All rights reserved.
 //
 
-import ProjectWalker
 import SwiftUI
+import ProjectWalker
 
 struct ProjectInfoView: View {
     var project: XcodeProject
