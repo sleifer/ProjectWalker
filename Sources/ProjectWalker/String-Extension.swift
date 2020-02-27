@@ -9,7 +9,7 @@ import Foundation
 
 let quotingCharacterSet = CharacterSet(charactersIn: "\\\"=@+-$:,< >")
 
-extension String {
+public extension String {
     func openStepQuoted() -> String {
         let nsStr = NSString(string: self)
         let range = nsStr.rangeOfCharacter(from: quotingCharacterSet)
