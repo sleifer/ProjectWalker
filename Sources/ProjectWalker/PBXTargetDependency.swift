@@ -10,6 +10,7 @@ import Foundation
 
 public class PBXTargetDependency: ProjectObject {
     public var target: Reference?
+    public var productRef: Reference?
     public var targetProxy: Reference?
     public var name: String?
 
@@ -24,6 +25,7 @@ public class PBXTargetDependency: ProjectObject {
 
     public required init(items: ProjectFileDictionary) {
         self.target = items.string(forKey: "target")
+        self.productRef = items.string(forKey: "productRef")
         self.targetProxy = items.string(forKey: "targetProxy")
         self.name = items.string(forKey: "name")
 
@@ -32,6 +34,7 @@ public class PBXTargetDependency: ProjectObject {
 
     override func removeRead(keys: inout Set<String>) {
         keys.remove("target")
+        keys.remove("productRef")
         keys.remove("targetProxy")
         keys.remove("name")
 
@@ -57,6 +60,13 @@ public class PBXTargetDependency: ProjectObject {
                 fileText.appendLine("targetProxy = \(value.openStepQuoted()) /* \(object.openStepComment) */;")
             } else {
                 fileText.appendLine("targetProxy = \(value.openStepQuoted());")
+            }
+        }
+        if let value = productRef {
+            if let object = project?.object(withKey: value) {
+                fileText.appendLine("productRef = \(value.openStepQuoted()) /* \(object.openStepComment) */;")
+            } else {
+                fileText.appendLine("productRef = \(value.openStepQuoted());")
             }
         }
         fileText.outdent()
