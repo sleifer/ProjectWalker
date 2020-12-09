@@ -17,6 +17,7 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase {
     public var shellScript: String?
     public var name: String?
     public var showEnvVarsInLog: Bool?
+    public var alwaysOutOfDate: Bool?
 
     public override var openStepComment: String {
         return name ?? "ShellScript"
@@ -36,6 +37,7 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase {
         self.shellScript = items.string(forKey: "shellScript")
         self.name = items.string(forKey: "name")
         self.showEnvVarsInLog = items.bool(forKey: "showEnvVarsInLog")
+        self.alwaysOutOfDate = items.bool(forKey: "alwaysOutOfDate")
 
         super.init(items: items)
     }
@@ -49,6 +51,7 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase {
         keys.remove("shellScript")
         keys.remove("name")
         keys.remove("showEnvVarsInLog")
+        keys.remove("alwaysOutOfDate")
 
         super.removeRead(keys: &keys)
     }
@@ -121,6 +124,9 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase {
         }
         if let value = showEnvVarsInLog {
             fileText.appendLine("showEnvVarsInLog = \(value ? 1 : 0);")
+        }
+        if let value = alwaysOutOfDate {
+            fileText.appendLine("alwaysOutOfDate = \(value ? 1 : 0);")
         }
         fileText.outdent()
         fileText.appendLine("};")
