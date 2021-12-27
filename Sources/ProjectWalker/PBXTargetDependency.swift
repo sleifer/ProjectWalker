@@ -13,6 +13,7 @@ public class PBXTargetDependency: ProjectObject {
     public var productRef: Reference?
     public var targetProxy: Reference?
     public var name: String?
+    public var platformFilter: String?
 
     public override var openStepComment: String {
         return "PBXTargetDependency"
@@ -28,6 +29,7 @@ public class PBXTargetDependency: ProjectObject {
         self.productRef = items.string(forKey: "productRef")
         self.targetProxy = items.string(forKey: "targetProxy")
         self.name = items.string(forKey: "name")
+        self.platformFilter = items.string(forKey: "platformFilter")
 
         super.init(items: items)
     }
@@ -37,6 +39,7 @@ public class PBXTargetDependency: ProjectObject {
         keys.remove("productRef")
         keys.remove("targetProxy")
         keys.remove("name")
+        keys.remove("platformFilter")
 
         super.removeRead(keys: &keys)
     }
@@ -47,6 +50,9 @@ public class PBXTargetDependency: ProjectObject {
         fileText.appendLine("isa = \(isa);")
         if let name = name {
             fileText.appendLine("name = \(name.openStepQuoted());")
+        }
+        if let platformFilter = platformFilter {
+            fileText.appendLine("platformFilter = \(platformFilter.openStepQuoted());")
         }
         if let value = target {
             if let object = project?.object(withKey: value) {
