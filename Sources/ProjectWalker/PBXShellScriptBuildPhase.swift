@@ -9,6 +9,7 @@
 import Foundation
 
 public class PBXShellScriptBuildPhase: PBXBuildPhase {
+    public var alwaysOutOfDate: Bool?
     public var inputPaths: [String]?
     public var inputFileListPaths: [String]?
     public var outputPaths: [String]?
@@ -17,7 +18,6 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase {
     public var shellScript: String?
     public var name: String?
     public var showEnvVarsInLog: Bool?
-    public var alwaysOutOfDate: Bool?
 
     public override var openStepComment: String {
         return name ?? "ShellScript"
@@ -29,6 +29,7 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase {
     }
 
     public required init(items: ProjectFileDictionary) {
+        self.alwaysOutOfDate = items.bool(forKey: "alwaysOutOfDate")
         self.inputPaths = items.stringArray(forKey: "inputPaths")
         self.inputFileListPaths = items.stringArray(forKey: "inputFileListPaths")
         self.outputPaths = items.stringArray(forKey: "outputPaths")
@@ -37,12 +38,12 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase {
         self.shellScript = items.string(forKey: "shellScript")
         self.name = items.string(forKey: "name")
         self.showEnvVarsInLog = items.bool(forKey: "showEnvVarsInLog")
-        self.alwaysOutOfDate = items.bool(forKey: "alwaysOutOfDate")
 
         super.init(items: items)
     }
 
     override func removeRead(keys: inout Set<String>) {
+        keys.remove("alwaysOutOfDate")
         keys.remove("inputPaths")
         keys.remove("inputFileListPaths")
         keys.remove("outputPaths")
@@ -51,7 +52,6 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase {
         keys.remove("shellScript")
         keys.remove("name")
         keys.remove("showEnvVarsInLog")
-        keys.remove("alwaysOutOfDate")
 
         super.removeRead(keys: &keys)
     }
@@ -60,6 +60,9 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase {
         fileText.appendLine("\(referenceKey) /* \(self.openStepComment) */ = {")
         fileText.indent()
         fileText.appendLine("isa = \(isa);")
+        if let value = alwaysOutOfDate {
+            fileText.appendLine("alwaysOutOfDate = \(value ? 1 : 0);")
+        }
         if let value = buildActionMask {
             fileText.appendLine("buildActionMask = \(value);")
         }
@@ -124,9 +127,6 @@ public class PBXShellScriptBuildPhase: PBXBuildPhase {
         }
         if let value = showEnvVarsInLog {
             fileText.appendLine("showEnvVarsInLog = \(value ? 1 : 0);")
-        }
-        if let value = alwaysOutOfDate {
-            fileText.appendLine("alwaysOutOfDate = \(value ? 1 : 0);")
         }
         fileText.outdent()
         fileText.appendLine("};")
