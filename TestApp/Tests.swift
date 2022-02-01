@@ -84,8 +84,7 @@ class Tests: ObservableObject {
                     if original != rewritten {
                         readWriteResult = "Error: rewritten does not match original"
                         try rewritten.write(toFile: writePath, atomically: true, encoding: .utf8)
-                        ProcessRunner.runCommand("open \"\(xproj.path.path)\" -a BBEdit")
-                        ProcessRunner.runCommand("open \"\(writePath)\" -a BBEdit")
+                        ProcessRunner.runCommand("/usr/local/bin/ksdiff \"\(xproj.path.path)\" \"\(writePath)\"")
                     } else {
                         readWriteResult = "Pass"
                     }
