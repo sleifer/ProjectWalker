@@ -11,15 +11,17 @@ public class XCRemoteSwiftPackageReference: ProjectObject {
     public var repositoryURL: String?
     public var requirement: ProjectFileDictionary?
 
-    public override var openStepComment: String {
-        if let dependency = project?.dependencyForPackage(withKey: referenceKey) {
+    override public var openStepComment: String {
+        if let url = repositoryURL {
+            return "XCRemoteSwiftPackageReference \"\(url.ns.lastPathComponent.ns.deletingPathExtension)\""
+        } else if let dependency = project?.dependencyForPackage(withKey: referenceKey) {
             return "XCRemoteSwiftPackageReference \"\(dependency.openStepComment)\""
         } else {
             return "XCRemoteSwiftPackageReference"
         }
     }
 
-    public override init() {
+    override public init() {
         super.init()
         self.isa = "XCRemoteSwiftPackageReference"
     }

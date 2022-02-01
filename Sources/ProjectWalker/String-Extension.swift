@@ -1,6 +1,6 @@
 //
 //  String-Extension.swift
-//  
+//
 //
 //  Created by Simeon Leifer on 2/17/20.
 //
@@ -10,10 +10,14 @@ import Foundation
 let quotingCharacterSet = CharacterSet(charactersIn: "\\\"=@+-$:,< >")
 
 public extension String {
+    var ns: NSString {
+        self as NSString
+    }
+
     func openStepQuoted() -> String {
         let nsStr = NSString(string: self)
         let range = nsStr.rangeOfCharacter(from: quotingCharacterSet)
-        if range.location == NSNotFound && self.count > 0 {
+        if range.location == NSNotFound, self.count > 0 {
             return self
         }
         var new = self.replacingOccurrences(of: "\\", with: "\\\\")
